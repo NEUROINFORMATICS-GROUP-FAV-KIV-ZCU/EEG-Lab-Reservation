@@ -1,0 +1,7 @@
+EEG Lab Reservation is an Android application for reservating a EEG laboratory in University of West Bohemia using EEG/ERP Portal reservation REST web service. Application is based on Android ICS and uses Apache Maven for deployment and Spring for Android for REST web services.
+
+It is neccessary to use Maven 3.0.3 or higher due to Android Maven Connector.
+
+Recommended articles:
+http://rgladwell.github.com/m2e-android/ - setting up Android/Maven support in Eclipse IDE
+

@@ -15,17 +15,21 @@ public final class R {
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int about=0x7f06000a;
-        public static final int datePicker1=0x7f060000;
-        public static final int login_button=0x7f060005;
-        public static final int refresh_button=0x7f060006;
-        public static final int settings=0x7f060009;
-        public static final int settings_password_field=0x7f060004;
-        public static final int settings_password_label=0x7f060003;
-        public static final int settings_username_field=0x7f060002;
-        public static final int settings_username_label=0x7f060001;
-        public static final int switch1=0x7f060007;
-        public static final int tableRow1=0x7f060008;
+        public static final int RelativeLayout1=0x7f060000;
+        public static final int about=0x7f06000e;
+        public static final int addBookTime=0x7f060003;
+        public static final int bookDateList=0x7f060004;
+        public static final int chooseDate=0x7f060002;
+        public static final int dateLabel=0x7f060001;
+        public static final int login_button=0x7f060009;
+        public static final int refresh_button=0x7f06000a;
+        public static final int settings=0x7f06000d;
+        public static final int settings_password_field=0x7f060008;
+        public static final int settings_password_label=0x7f060007;
+        public static final int settings_username_field=0x7f060006;
+        public static final int settings_username_label=0x7f060005;
+        public static final int switch1=0x7f06000b;
+        public static final int tableRow1=0x7f06000c;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -40,6 +44,9 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int app_settings=0x7f040001;
         public static final int login_button=0x7f040006;
+        public static final int main_add_time=0x7f04000d;
+        public static final int main_date=0x7f04000b;
+        public static final int main_date_label=0x7f04000c;
         public static final int menu_cancel=0x7f040005;
         public static final int menu_ok=0x7f040004;
         public static final int refresh_button=0x7f040007;

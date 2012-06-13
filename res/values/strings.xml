@@ -14,4 +14,7 @@
     <string name="settings_autosync">Auto sync</string>
     <string name="settings_username">Username</string>
     <string name="settings_password">Password</string>
+    <string name="main_date">Choose date</string>
+    <string name="main_date_label">DATE</string>
+    <string name="main_add_time">Add booking time</string>
 </resources>

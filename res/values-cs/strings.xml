@@ -14,4 +14,7 @@
     <string name="settings_autosync">Synchronizace</string>
     <string name="settings_username">Uživatelské jméno</string>
     <string name="settings_password">Heslo</string>
+    <string name="main_date">Vyberte datum</string>
+    <string name="main_date_label">DATUM</string>
+    <string name="main_add_time">Přidat rezervaci</string>
 </resources>

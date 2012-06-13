@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
-
-    <DatePicker
-        android:id="@+id/datePicker1"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dateLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/chooseDate"
+        android:padding="15sp"
+        android:text="@string/main_date_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/addBookTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/main_add_time" />
+
+    <Button
+        android:id="@+id/chooseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bookDateList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/main_date" />
+
+    <ListView
+        android:id="@+id/bookDateList"
+        android:layout_width="match_parent"
+        android:layout_height="342dp"
+        android:layout_above="@+id/addBookTime"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateLabel" >
 
-</LinearLayout>
+    </ListView>
+
+</RelativeLayout>

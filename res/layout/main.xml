@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:columnCount="3"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/dateLabel"
         android:layout_width="wrap_content"
@@ -24,24 +24,23 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="@string/main_add_time" />
-
-    <Button
-        android:id="@+id/chooseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bookDateList"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/main_date" />
-
+
     <ListView
-        android:id="@+id/bookDateList"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="342dp"
         android:layout_above="@+id/addBookTime"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/dateLabel" >
-
     </ListView>
+
+    <Button
+        android:id="@+id/chooseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/list"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/main_date" />
 
 </RelativeLayout>

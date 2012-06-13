@@ -1,6 +1,8 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,8 +19,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
 
 /**
  * 
@@ -30,6 +34,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private static final String TAG = "CalendarActivity";
 	private int year, month, day;
 	private TextView dateLabel;
+	private ReservationAdapter reservationAdapter;
 
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
@@ -38,7 +43,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			CalendarActivity.this.year = year;
 			month = monthOfYear;
 			day = dayOfMonth;
-
 			updateDate();
 
 		}
@@ -56,9 +60,43 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		month = c.get(Calendar.MONTH);
 		day = c.get(Calendar.DAY_OF_MONTH);
 		dateLabel = (TextView) findViewById(R.id.dateLabel);
-		updateDate();
 
 		initButtons();
+		initList();
+		updateDate();
+	}
+
+	private void initList() {
+
+		reservationAdapter = (ReservationAdapter) getLastNonConfigurationInstance();
+		if (reservationAdapter == null)
+			reservationAdapter = new ReservationAdapter(this, R.layout.row, new ArrayList<ReservationData>());
+
+		View header = getLayoutInflater().inflate(R.layout.header_row, null);
+		ListView listView = (ListView) findViewById(R.id.list);
+		listView.addHeaderView(header);
+		listView.setAdapter(reservationAdapter);
+	}
+
+	private void updateReservations(final List<ReservationData> data) {
+
+		// TEST PUPOSES
+		data.add(new ReservationData("petrmiko", Calendar.getInstance().getTime(), Calendar.getInstance().getTime()));
+		//
+
+		Runnable updateData = new Runnable() {
+			@Override
+			public void run() {
+				reservationAdapter.clear();
+
+				for (ReservationData record : data) {
+					reservationAdapter.add(record);
+				}
+				reservationAdapter.notifyDataSetChanged();
+			}
+		};
+
+		runOnUiThread(updateData);
 	}
 
 	protected void updateDate() {
@@ -111,6 +149,9 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.addBookTime:
+			// TEST PURPOSES
+			updateReservations(new ArrayList<ReservationData>());
+			//
 			Log.d(TAG, "Add new booking time chosen");
 			Toast.makeText(this, R.string.main_add_time, Toast.LENGTH_SHORT).show();
 			break;
@@ -120,6 +161,10 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			datePicker.show();
 			break;
 		}
+	}
 
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		return reservationAdapter;
 	}
 }

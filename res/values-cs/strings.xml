@@ -17,4 +17,5 @@
     <string name="main_date">Vyberte datum</string>
     <string name="main_date_label">DATUM</string>
     <string name="main_add_time">Přidat rezervaci</string>
+    <string name="reservation_times">Rezervované časy</string>
 </resources>

@@ -17,4 +17,5 @@
     <string name="main_date">Choose date</string>
     <string name="main_date_label">DATE</string>
     <string name="main_add_time">Add booking time</string>
+    <string name="reservation_times">Reserved times</string>
 </resources>

@@ -2,11 +2,13 @@ package cz.zcu.kiv.eeg.lab.reservation;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,6 +17,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
+import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
 
 public class AddRecordActivity extends Activity implements OnClickListener {
 
@@ -42,9 +47,11 @@ public class AddRecordActivity extends Activity implements OnClickListener {
 	private void initButtons() {
 		Button changeFrom = (Button) findViewById(R.id.fromTimeButton);
 		Button changeTo = (Button) findViewById(R.id.toTimeButton);
+		Button save = (Button) findViewById(R.id.addRecordButton);
 
 		changeFrom.setOnClickListener(this);
 		changeTo.setOnClickListener(this);
+		save.setOnClickListener(this);
 	}
 
 	private void initFields() {
@@ -55,6 +62,9 @@ public class AddRecordActivity extends Activity implements OnClickListener {
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
 		dateField.setText(String.format("%d.%d.%d", day, month, year));
+
+		fromHour = toHour = c.get(Calendar.HOUR_OF_DAY);
+		fromMinute = toMinute = c.get(Calendar.MINUTE);
 
 		fromField.setText(sf.format(c.getTime()));
 		toField.setText(sf.format(c.getTime()));
@@ -110,7 +120,39 @@ public class AddRecordActivity extends Activity implements OnClickListener {
 					toHour, toMinute, true);
 			toDialog.show();
 			break;
-		}
 
+		case R.id.addRecordButton:
+
+			Intent resultIntent = new Intent();
+
+			try {
+				SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+				Date fromDate = sf.parse(String.format(
+						"%02d.%02d.%04d %02d:%02d", day, month, year, fromHour,
+						fromMinute));
+				Date toDate = sf.parse(String.format(
+						"%02d.%02d.%04d %02d:%02d", day, month, year, toHour,
+						toMinute));
+
+				if (fromDate.getTime() >= toDate.getTime()) {
+					throw new Exception(
+							getString(R.string.error_date_comparison));
+				}
+				// HACK username is now hard coded, will be filled in accordance
+				// to login into REST WS
+				ReservationData record = new ReservationData("petrmiko",
+						fromDate, toDate);
+				// TODO REST server validation
+				resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
+				setResult(Activity.RESULT_OK, resultIntent);
+				finish();
+			} catch (Exception e) {
+				Log.e(TAG, e.getMessage());
+				Toast errorMsg = Toast.makeText(this, e.getMessage(),
+						Toast.LENGTH_SHORT);
+				errorMsg.show();
+			}
+			break;
+		}
 	}
 }

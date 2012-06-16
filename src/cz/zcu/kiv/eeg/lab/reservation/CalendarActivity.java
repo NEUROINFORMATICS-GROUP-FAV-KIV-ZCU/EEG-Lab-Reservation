@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
 
 /**
@@ -159,7 +160,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			b.putInt("month", month);
 			b.putInt("day", day);
 			intent.putExtras(b);
-			startActivity(intent);
+			startActivityForResult(intent, Constants.ADD_RECORD_FLAG);
 			break;
 		case R.id.chooseDate:
 			Log.d(TAG, "Add new booking time chosen");
@@ -167,6 +168,26 @@ public class CalendarActivity extends Activity implements OnClickListener {
 					dateSetListener, year, month, day);
 			datePicker.show();
 			break;
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (Constants.ADD_RECORD_FLAG): {
+			if (resultCode == Activity.RESULT_OK) {
+				// HACK just for testing of additions from AddRecordActivity
+				// will be replaced with loading from REST web service, when
+				// adding was OK.
+				ReservationData record = (ReservationData) data.getExtras()
+						.get(Constants.ADD_RECORD_KEY);
+				List<ReservationData> a = new ArrayList<ReservationData>();
+				a.add(record);
+				updateReservations(a);
+			}
+			break;
+		}
 		}
 	}
 

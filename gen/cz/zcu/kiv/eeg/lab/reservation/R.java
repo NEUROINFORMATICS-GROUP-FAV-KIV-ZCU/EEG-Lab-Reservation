@@ -67,10 +67,11 @@ public final class R {
         public static final int dummy_date=0x7f040014;
         public static final int dummy_from=0x7f040015;
         public static final int dummy_to=0x7f040016;
+        public static final int error_date_comparison=0x7f040017;
         public static final int login_button=0x7f040007;
         public static final int main_add_time=0x7f04000d;
         public static final int main_date=0x7f04000c;
-        public static final int main_date_label=0x7f040017;
+        public static final int main_date_label=0x7f040018;
         public static final int menu_cancel=0x7f040006;
         public static final int menu_ok=0x7f040005;
         public static final int refresh_button=0x7f040008;

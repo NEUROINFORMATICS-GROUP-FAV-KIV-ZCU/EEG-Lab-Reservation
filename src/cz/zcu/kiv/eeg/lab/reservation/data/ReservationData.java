@@ -1,5 +1,6 @@
 package cz.zcu.kiv.eeg.lab.reservation.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * @author Petr Miko
  * 
  */
-public class ReservationData {
+public class ReservationData implements Serializable {
 
 	private String username;
 	private Date fromTime;

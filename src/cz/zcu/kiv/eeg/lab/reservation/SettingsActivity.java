@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 public class SettingsActivity extends Activity {
 
-	private static final String TAG = "SettingsActivity";
+	private static final String TAG = SettingsActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

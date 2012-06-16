@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
 
 /**
@@ -31,7 +30,7 @@ import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
  */
 public class CalendarActivity extends Activity implements OnClickListener {
 
-	private static final String TAG = "CalendarActivity";
+	private static final String TAG = CalendarActivity.class.getSimpleName();
 	private int year, month, day;
 	private TextView dateLabel;
 	private ReservationAdapter reservationAdapter;
@@ -39,7 +38,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
 			CalendarActivity.this.year = year;
 			month = monthOfYear;
 			day = dayOfMonth;
@@ -70,7 +70,8 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		reservationAdapter = (ReservationAdapter) getLastNonConfigurationInstance();
 		if (reservationAdapter == null)
-			reservationAdapter = new ReservationAdapter(this, R.layout.row, new ArrayList<ReservationData>());
+			reservationAdapter = new ReservationAdapter(this, R.layout.row,
+					new ArrayList<ReservationData>());
 
 		View header = getLayoutInflater().inflate(R.layout.header_row, null);
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -80,10 +81,11 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	private void updateReservations(final List<ReservationData> data) {
 
-		// TEST PUPOSES
-		data.add(new ReservationData("petrmiko", Calendar.getInstance().getTime(), Calendar.getInstance().getTime()));
-		//
-
+		/*
+		 * // TEST PUPOSES data.add(new ReservationData("petrmiko",
+		 * Calendar.getInstance() .getTime(),
+		 * Calendar.getInstance().getTime())); //
+		 */
 		Runnable updateData = new Runnable() {
 			@Override
 			public void run() {
@@ -136,12 +138,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	private void showAbout() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.app_about_description).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		});
+		builder.setMessage(R.string.app_about_description).setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
 		builder.create().show();
 	}
 
@@ -149,15 +152,19 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.addBookTime:
-			// TEST PURPOSES
-			updateReservations(new ArrayList<ReservationData>());
-			//
 			Log.d(TAG, "Add new booking time chosen");
-			Toast.makeText(this, R.string.main_add_time, Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(this, AddRecordActivity.class);
+			Bundle b = new Bundle();
+			b.putInt("year", year);
+			b.putInt("month", month);
+			b.putInt("day", day);
+			intent.putExtras(b);
+			startActivity(intent);
 			break;
 		case R.id.chooseDate:
 			Log.d(TAG, "Add new booking time chosen");
-			DatePickerDialog datePicker = new DatePickerDialog(this, dateSetListener, year, month, day);
+			DatePickerDialog datePicker = new DatePickerDialog(this,
+					dateSetListener, year, month, day);
 			datePicker.show();
 			break;
 		}

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">EEG Lab reservation</string>
     <string name="app_settings">Settings</string>
+    <string name="app_add_record">Add new reservation</string>
     <string name="app_about">About</string>
     <string name="app_about_description">This application is meant for booking the EEG/ERP
          Laboratory in the Department of Computer Science and Engineering at the University of West Bohemia.
@@ -15,7 +17,15 @@
     <string name="settings_username">Username</string>
     <string name="settings_password">Password</string>
     <string name="main_date">Choose date</string>
-    <string name="main_date_label">DATE</string>
     <string name="main_add_time">Add booking time</string>
     <string name="reservation_times">Reserved times</string>
+    <string name="add_date_label">Date</string>
+    <string name="add_from_label">From time</string>
+    <string name="add_to_label">To time</string>
+    <string name="add_change">Change time</string>
+    <string name="add_save">Save</string>
+    <string name="dummy_date">DATE</string>
+    <string name="dummy_from">FROM</string>
+    <string name="dummy_to">TO</string>
+
 </resources>

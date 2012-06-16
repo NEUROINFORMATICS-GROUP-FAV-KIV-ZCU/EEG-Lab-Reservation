@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/chooseDate"
         android:padding="15sp"
-        android:text="@string/main_date_label"
+        android:text="@string/dummy_date"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button

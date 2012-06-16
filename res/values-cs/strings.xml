@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">EEG Lab Rezervace</string>
     <string name="app_settings">Nastavení</string>
+    <string name="app_add_record">Přidat novou rezervaci</string>
     <string name="app_about">O aplikaci</string>
     <string name="app_about_description">Tato aplikace slouží pro rezervaci EEG/ERP Laboratoře na
         Katedře Informatiky a Výpočetní techniky na Západočeské univerzitě v Plzni.
@@ -18,4 +20,13 @@
     <string name="main_date_label">DATUM</string>
     <string name="main_add_time">Přidat rezervaci</string>
     <string name="reservation_times">Rezervované časy</string>
+    <string name="add_date_label">Datum</string>
+    <string name="add_from_label">Od času</string>
+    <string name="add_to_label">Do času</string>
+    <string name="add_change">Změnit čas</string>
+    <string name="add_save">Uložit</string>
+    <string name="dummy_date">DATUM</string>
+    <string name="dummy_from">OD</string>
+    <string name="dummy_to">DO</string>
+
 </resources>

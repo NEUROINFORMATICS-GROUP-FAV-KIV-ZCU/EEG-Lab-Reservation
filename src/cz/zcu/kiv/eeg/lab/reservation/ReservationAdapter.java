@@ -47,7 +47,7 @@ public class ReservationAdapter extends ArrayAdapter<ReservationData> {
 				topText.setText(sf.format(record.getFromTime()) + " – " + sf.format(record.getToTime()));
 			}
 			if (additionalText != null) {
-				additionalText.setText(record.getUsername());
+				additionalText.setText(record.getResearchGroup());
 			}
 		}
 		return row;

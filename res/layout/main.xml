@@ -16,20 +16,21 @@
         android:padding="15sp"
         android:text="@string/dummy_date"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <Button
-        android:id="@+id/addBookTime"
+        android:id="@+id/addRecord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/main_add_time" />
+        android:text="@string/main_add_time"
+        android:onClick="addRecordClick" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="342dp"
-        android:layout_above="@+id/addBookTime"
+        android:layout_above="@+id/addRecord"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/dateLabel" >
     </ListView>
@@ -41,6 +42,7 @@
         android:layout_above="@+id/list"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/main_date" />
+        android:text="@string/main_date"
+        android:onClick="chooseDateClick" />
 
 </RelativeLayout>

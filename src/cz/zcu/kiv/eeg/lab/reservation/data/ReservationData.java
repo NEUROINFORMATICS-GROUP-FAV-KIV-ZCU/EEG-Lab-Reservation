@@ -11,22 +11,23 @@ import java.util.Date;
  */
 public class ReservationData implements Serializable {
 
-	private String username;
+	private static final long serialVersionUID = 8850665675446609744L;
+	private String researchGroup;
 	private Date fromTime;
 	private Date toTime;
 
 	public ReservationData(String username, Date fromTime, Date toTime) {
-		this.username = username;
+		researchGroup = username;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getResearchGroup() {
+		return researchGroup;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setResearchGroup(String researchGroup) {
+		this.researchGroup = researchGroup;
 	}
 
 	public Date getFromTime() {

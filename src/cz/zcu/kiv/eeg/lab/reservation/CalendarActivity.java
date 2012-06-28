@@ -16,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +27,7 @@ import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
  * @author Petr Miko
  * 
  */
-public class CalendarActivity extends Activity implements OnClickListener {
+public class CalendarActivity extends Activity {
 
 	private static final String TAG = CalendarActivity.class.getSimpleName();
 	private int year, month, day;
@@ -39,8 +37,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 			CalendarActivity.this.year = year;
 			month = monthOfYear;
 			day = dayOfMonth;
@@ -62,7 +59,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 		day = c.get(Calendar.DAY_OF_MONTH);
 		dateLabel = (TextView) findViewById(R.id.dateLabel);
 
-		initButtons();
 		initList();
 		updateDate();
 	}
@@ -71,8 +67,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 		reservationAdapter = (ReservationAdapter) getLastNonConfigurationInstance();
 		if (reservationAdapter == null)
-			reservationAdapter = new ReservationAdapter(this, R.layout.row,
-					new ArrayList<ReservationData>());
+			reservationAdapter = new ReservationAdapter(this, R.layout.row, new ArrayList<ReservationData>());
 
 		View header = getLayoutInflater().inflate(R.layout.header_row, null);
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -82,11 +77,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	private void updateReservations(final List<ReservationData> data) {
 
-		/*
-		 * // TEST PUPOSES data.add(new ReservationData("petrmiko",
-		 * Calendar.getInstance() .getTime(),
-		 * Calendar.getInstance().getTime())); //
-		 */
 		Runnable updateData = new Runnable() {
 			@Override
 			public void run() {
@@ -105,13 +95,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	protected void updateDate() {
 		// Oracle months are counted from zero instead of one
 		dateLabel.setText(String.format("%d.%d.%d", day, month + 1, year));
-	}
-
-	private void initButtons() {
-		Button addRecord = (Button) findViewById(R.id.addBookTime);
-		Button chooseDate = (Button) findViewById(R.id.chooseDate);
-		addRecord.setOnClickListener(this);
-		chooseDate.setOnClickListener(this);
 	}
 
 	@Override
@@ -139,36 +122,30 @@ public class CalendarActivity extends Activity implements OnClickListener {
 
 	private void showAbout() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.app_about_description).setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
+		builder.setMessage(R.string.app_about_description).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
 		builder.create().show();
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.addBookTime:
-			Log.d(TAG, "Add new booking time chosen");
-			Intent intent = new Intent(this, AddRecordActivity.class);
-			Bundle b = new Bundle();
-			b.putInt("year", year);
-			b.putInt("month", month);
-			b.putInt("day", day);
-			intent.putExtras(b);
-			startActivityForResult(intent, Constants.ADD_RECORD_FLAG);
-			break;
-		case R.id.chooseDate:
-			Log.d(TAG, "Add new booking time chosen");
-			DatePickerDialog datePicker = new DatePickerDialog(this,
-					dateSetListener, year, month, day);
-			datePicker.show();
-			break;
-		}
+	public void addRecordClick(View v) {
+		Log.d(TAG, "Add new booking time chosen");
+		Intent intent = new Intent(this, AddRecordActivity.class);
+		Bundle b = new Bundle();
+		b.putInt("year", year);
+		b.putInt("month", month);
+		b.putInt("day", day);
+		intent.putExtras(b);
+		startActivityForResult(intent, Constants.ADD_RECORD_FLAG);
+	}
+
+	public void chooseDateClick(View v) {
+		Log.d(TAG, "Add new booking time chosen");
+		DatePickerDialog datePicker = new DatePickerDialog(this, dateSetListener, year, month, day);
+		datePicker.show();
 	}
 
 	@Override
@@ -180,8 +157,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 				// HACK just for testing of additions from AddRecordActivity
 				// will be replaced with loading from REST web service, when
 				// adding was OK.
-				ReservationData record = (ReservationData) data.getExtras()
-						.get(Constants.ADD_RECORD_KEY);
+				ReservationData record = (ReservationData) data.getExtras().get(Constants.ADD_RECORD_KEY);
 				List<ReservationData> a = new ArrayList<ReservationData>();
 				a.add(record);
 				updateReservations(a);

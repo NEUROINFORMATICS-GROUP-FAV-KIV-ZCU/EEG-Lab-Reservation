@@ -18,7 +18,7 @@ public final class R {
         public static final int GridLayout1=0x7f060000;
         public static final int RelativeLayout1=0x7f06000b;
         public static final int about=0x7f06001a;
-        public static final int addBookTime=0x7f06000d;
+        public static final int addRecord=0x7f06000d;
         public static final int addRecordButton=0x7f060009;
         public static final int bottomtext=0x7f060010;
         public static final int chooseDate=0x7f06000c;
@@ -37,9 +37,9 @@ public final class R {
         public static final int settings_username_label=0x7f060011;
         public static final int switch1=0x7f060017;
         public static final int tableRow1=0x7f060018;
-        public static final int toField=0x7f060007;
+        public static final int toField=0x7f060008;
         public static final int toLabel=0x7f060006;
-        public static final int toTimeButton=0x7f060008;
+        public static final int toTimeButton=0x7f060007;
         public static final int toptext=0x7f06000f;
         public static final int txtHeader=0x7f06000a;
     }

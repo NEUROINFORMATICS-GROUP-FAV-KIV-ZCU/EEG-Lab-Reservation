@@ -1,6 +1,7 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,17 +14,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
-import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
+import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
+import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 
 public class AddRecordActivity extends Activity {
 
 	private static final String TAG = AddRecordActivity.class.getSimpleName();
 
 	private int year, month, day, fromHour, fromMinute, toHour, toMinute;
+	private ArrayAdapter<ResearchGroup> researchGroupAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,13 @@ public class AddRecordActivity extends Activity {
 
 		fromField.setText(sf.format(c.getTime()));
 		toField.setText(sf.format(c.getTime()));
+
+		researchGroupAdapter = new ResearchGroupAdapter(this, R.layout.group_row, new ArrayList<ResearchGroup>());
+		Spinner groupList = (Spinner) findViewById(R.id.groupList);
+		groupList.setAdapter(researchGroupAdapter);
+
+		researchGroupAdapter.add(new ResearchGroup(1, "Test group"));
+		researchGroupAdapter.add(new ResearchGroup(2, "Test group 2"));
 	}
 
 	@Override
@@ -115,19 +128,19 @@ public class AddRecordActivity extends Activity {
 			if (fromDate.getTime() >= toDate.getTime()) {
 				throw new Exception(getString(R.string.error_date_comparison));
 			}
-			// HACK username is now hard coded, will be filled in accordance
+			ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
+
+			// HACK group adding hard coded, will be filled in accordance
 			// to login into REST WS
-			ReservationData record = new ReservationData("Test group", fromDate, toDate);
+			Reservation record = new Reservation(group.getResearchGroupName(), fromDate, toDate);
 			// TODO REST server validation
 			resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 			Toast errorMsg = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
 			errorMsg.show();
 		}
 	}
-
 }

@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">EEG Lab Rezervace</string>
+    <string name="app_overview">Přehled</string>
     <string name="app_settings">Nastavení</string>
-    <string name="app_add_record">Přidat novou rezervaci</string>
+    <string name="app_add_record">Nová rezervace</string>
     <string name="app_about">O aplikaci</string>
     <string name="app_about_description">Tato aplikace slouží pro rezervaci EEG/ERP Laboratoře na
         Katedře Informatiky a Výpočetní techniky na Západočeské univerzitě v Plzni.

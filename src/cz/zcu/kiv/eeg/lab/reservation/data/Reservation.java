@@ -9,24 +9,24 @@ import java.util.Date;
  * @author Petr Miko
  * 
  */
-public class ReservationData implements Serializable {
+public class Reservation implements Serializable {
 
 	private static final long serialVersionUID = 8850665675446609744L;
-	private String researchGroup;
+	private CharSequence researchGroup;
 	private Date fromTime;
 	private Date toTime;
 
-	public ReservationData(String username, Date fromTime, Date toTime) {
-		researchGroup = username;
+	public Reservation(CharSequence researchGroup, Date fromTime, Date toTime) {
+		this.researchGroup = researchGroup;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
 	}
 
-	public String getResearchGroup() {
+	public CharSequence getResearchGroup() {
 		return researchGroup;
 	}
 
-	public void setResearchGroup(String researchGroup) {
+	public void setResearchGroup(CharSequence researchGroup) {
 		this.researchGroup = researchGroup;
 	}
 

@@ -1,4 +1,4 @@
-package cz.zcu.kiv.eeg.lab.reservation;
+package cz.zcu.kiv.eeg.lab.reservation.container;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
+import cz.zcu.kiv.eeg.lab.reservation.R;
+import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 
 /**
  * Custom class of ArrayAdapter. Used for viewing ReservationData records in
@@ -19,14 +20,12 @@ import cz.zcu.kiv.eeg.lab.reservation.data.ReservationData;
  * @author Petr Miko - miko.petr (at) gmail.com
  * 
  */
-public class ReservationAdapter extends ArrayAdapter<ReservationData> {
-	// private final List<ReservationData> items;
+public class ReservationAdapter extends ArrayAdapter<Reservation> {
 	private final Context context;
 	private final int resourceId;
 
-	public ReservationAdapter(Context context, int resourceId, List<ReservationData> items) {
+	public ReservationAdapter(Context context, int resourceId, List<Reservation> items) {
 		super(context, resourceId, items);
-		// this.items = items;
 		this.context = context;
 		this.resourceId = resourceId;
 	}
@@ -38,7 +37,7 @@ public class ReservationAdapter extends ArrayAdapter<ReservationData> {
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(resourceId, parent, false);
 		}
-		ReservationData record = getItem(position);
+		Reservation record = getItem(position);
 		if (record != null) {
 			SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
 			TextView topText = (TextView) row.findViewById(R.id.toptext);

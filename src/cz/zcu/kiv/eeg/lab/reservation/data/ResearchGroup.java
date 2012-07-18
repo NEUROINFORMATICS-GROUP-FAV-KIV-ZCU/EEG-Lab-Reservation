@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 /**
  * Data container for Research Group information.
+ * 
  * @author Petr Miko
- *
+ * 
  */
 public class ResearchGroup implements Serializable {
 
@@ -15,29 +16,34 @@ public class ResearchGroup implements Serializable {
 	 * Research group identifier.
 	 */
 	private int researchGroupId;
-	
+
 	/**
 	 * Research group name.
 	 */
 	private CharSequence researchGroupName;
-	
+
 	/**
 	 * Creates uninitialized research group object.
 	 */
-	public ResearchGroup(){}
-	
+	public ResearchGroup() {
+	}
+
 	/**
 	 * Creates initialized research group object.
-	 * @param researchGroupId research group identifier
-	 * @param researchGroupName research group name
+	 * 
+	 * @param researchGroupId
+	 *            research group identifier
+	 * @param researchGroupName
+	 *            research group name
 	 */
-	public ResearchGroup(int researchGroupId, String researchGroupName){
+	public ResearchGroup(int researchGroupId, String researchGroupName) {
 		this.researchGroupId = researchGroupId;
 		this.researchGroupName = researchGroupName;
 	}
 
 	/**
 	 * Gets research group identifier.
+	 * 
 	 * @return research group identifier
 	 */
 	public int getResearchGroupId() {
@@ -46,7 +52,9 @@ public class ResearchGroup implements Serializable {
 
 	/**
 	 * Sets research group identifier.
-	 * @param researchGroupId research group identifier
+	 * 
+	 * @param researchGroupId
+	 *            research group identifier
 	 */
 	public void setResearchGroupId(int researchGroupId) {
 		this.researchGroupId = researchGroupId;
@@ -54,6 +62,7 @@ public class ResearchGroup implements Serializable {
 
 	/**
 	 * Gets research group name.
+	 * 
 	 * @return research group name
 	 */
 	public CharSequence getResearchGroupName() {
@@ -62,7 +71,9 @@ public class ResearchGroup implements Serializable {
 
 	/**
 	 * Sets research group name.
-	 * @param researchGroupName research group name
+	 * 
+	 * @param researchGroupName
+	 *            research group name
 	 */
 	public void setResearchGroupName(CharSequence researchGroupName) {
 		this.researchGroupName = researchGroupName;

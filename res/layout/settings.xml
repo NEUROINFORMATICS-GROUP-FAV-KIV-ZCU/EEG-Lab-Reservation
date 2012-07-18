@@ -20,8 +20,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="text" >
-
+            android:inputType="textEmailAddress" >
             <requestFocus />
         </EditText>
     </TableRow>
@@ -43,6 +42,24 @@
             android:ems="10"
             android:inputType="textPassword" />
     </TableRow>
+    
+    <TableRow>
+
+        <TextView
+            android:id="@+id/settings_url_label"
+            android:layout_width="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="@string/settings_url" />
+
+        <EditText
+            android:id="@+id/settings_url_field"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textUri" />
+    </TableRow>
 
     <TableRow>
 
@@ -52,31 +69,8 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:text="@string/login_button" />
-
-        <Button
-            android:id="@+id/refresh_button"
-            android:layout_width="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:text="@string/refresh_button" />
-    </TableRow>
-
-    <TableRow>
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_weight="1"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/settings_autosync" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+            android:text="@string/login_button"
+            android:onClick="loginClick" />
     </TableRow>
 
 </TableLayout>

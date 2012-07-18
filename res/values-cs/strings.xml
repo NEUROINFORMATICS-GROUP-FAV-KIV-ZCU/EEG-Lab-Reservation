@@ -3,6 +3,7 @@
 
     <string name="app_name">EEG Lab Rezervace</string>
     <string name="app_overview">Přehled</string>
+    <string name="app_refresh">Obnovit</string>
     <string name="app_settings">Nastavení</string>
     <string name="app_add_record">Nová rezervace</string>
     <string name="app_about">O aplikaci</string>
@@ -14,9 +15,10 @@
     <string name="menu_cancel">Storno</string>
     <string name="login_button">Přihlásit se</string>
     <string name="refresh_button">Obnovit data</string>
-    <string name="settings_autosync">Synchronizace</string>
+    <string name="settings_url">URL služby</string>
     <string name="settings_username">Uživatelské jméno</string>
     <string name="settings_password">Heslo</string>
+    <string name="settings_saved">Nastavení uloženo</string>
     <string name="main_date">Vyberte datum</string>
     <string name="main_date_label">DATUM</string>
     <string name="main_add_time">Přidat rezervaci</string>
@@ -26,6 +28,8 @@
     <string name="add_to_label">Do času</string>
     <string name="add_change">Změnit čas</string>
     <string name="add_save">Uložit</string>
+    <string name="ws_working">Pracuji</string>
+    <string name="ws_working_msg">Probíhá komunikace s webovou službou…</string>
     <string name="dummy_date">DATUM</string>
     <string name="dummy_from">OD</string>
     <string name="dummy_to">DO</string>

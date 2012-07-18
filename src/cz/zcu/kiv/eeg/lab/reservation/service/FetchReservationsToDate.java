@@ -14,14 +14,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
+import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationDataList;
@@ -31,30 +33,35 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 
 	private static final String TAG = FetchReservationsToDate.class.getSimpleName();
 
-	private String username = "username";
-	private String password = "password";
-
 	private Context context;
+	private Handler messageHandler;
 	private ReservationAdapter reservationAdapter;
 
-	public FetchReservationsToDate(Context context, ReservationAdapter reservationAdapter) {
+	public FetchReservationsToDate(Context context, Handler messageHandler, ReservationAdapter reservationAdapter) {
 		this.context = context;
+		this.messageHandler = messageHandler;
 		this.reservationAdapter = reservationAdapter;
 	}
 
 	@Override
 	protected List<ReservationData> doInBackground(Integer... params) {
-		String url;
-		//HACK URL is hardcoded for now, will be changed in upcomming updates
+		SharedPreferences credentials = context.getSharedPreferences(Constants.PREFS_CREDENTIALS, Context.MODE_PRIVATE);
+		String username = credentials.getString("username", null);
+		String password = credentials.getString("password", null);
+		String url = credentials.getString("url", null);
+
+		if (url != null && !url.endsWith("/"))
+			url += "/";
+
 		if (params.length == 3) {
-			url = "https://147.228.64.172:8443/EEGDatabase/webservice/reservation/" + params[0] + "-" + params[1] + "-"
-					+ params[2];
+			url = url + params[0] + "-" + params[1] + "-" + params[2];
 		} else {
 			Log.e(TAG, "Invalid params count! Must be 3 in order of year, month, day");
-			Toast.makeText(context, "Invalid params count! Max. is 2", Toast.LENGTH_SHORT).show();
+			sendMessage(Constants.MSG_ERROR, "Invalid params count! Must be 3 in order of year, month, day");
 			return Collections.emptyList();
 		}
 
+		sendMessage(Constants.MSG_WORKING_START, null);
 		// Populate the HTTP Basic Authentication header with the username and
 		// password
 		HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
@@ -78,9 +85,11 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 				return body.getReservations();
 			}
 
-		} catch (HttpClientErrorException e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage(), e);
-			Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+			sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
+		} finally {
+			sendMessage(Constants.MSG_WORKING_DONE, null);
 		}
 		return Collections.emptyList();
 	}
@@ -97,9 +106,17 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 					Reservation reservation = new Reservation(res.getResearchGroup(), fromTime, toTime);
 					reservationAdapter.add(reservation);
 				} catch (Exception e) {
-					Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+					sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
 					Log.e(TAG, e.getLocalizedMessage(), e);
 				}
 			}
 	}
+
+	private void sendMessage(int messageCode, Object body) {
+		Message msg = Message.obtain();
+		msg.what = messageCode;
+		msg.obj = body;
+		messageHandler.sendMessage(msg);
+	}
+
 }

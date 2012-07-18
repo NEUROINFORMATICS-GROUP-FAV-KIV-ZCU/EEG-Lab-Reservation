@@ -2,37 +2,19 @@ package cz.zcu.kiv.eeg.lab.reservation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-
-import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
-import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
-import cz.zcu.kiv.eeg.lab.reservation.service.FetchReservationsToDate;
-import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
-import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationDataList;
-import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,6 +24,10 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
+import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
+import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
+import cz.zcu.kiv.eeg.lab.reservation.service.FetchReservationsToDate;
 
 /**
  * 
@@ -54,6 +40,25 @@ public class CalendarActivity extends Activity {
 	private int year, month, day;
 	private TextView dateLabel;
 	private ReservationAdapter reservationAdapter;
+	private ProgressDialog wsProgressDialog;
+
+	private Handler messageHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+
+			switch (msg.what) {
+			case Constants.MSG_WORKING_START:
+				wsProgressDialog = ProgressDialog.show(CalendarActivity.this, getString(R.string.ws_working),
+						getString(R.string.ws_working_msg));
+				break;
+			case Constants.MSG_WORKING_DONE:
+				wsProgressDialog.dismiss();
+				break;
+			case Constants.MSG_ERROR:
+				Toast.makeText(CalendarActivity.this, (String) msg.obj, Toast.LENGTH_LONG).show();
+			}
+		}
+	};
 
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
@@ -62,8 +67,8 @@ public class CalendarActivity extends Activity {
 			CalendarActivity.this.year = year;
 			month = monthOfYear;
 			day = dayOfMonth;
-			new FetchReservationsToDate(CalendarActivity.this, reservationAdapter).execute(day, month + 1, year);
 			updateDate();
+			updateData();
 		}
 	};
 
@@ -75,21 +80,26 @@ public class CalendarActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
-		dateLabel = (TextView) findViewById(R.id.dateLabel);
-
-		initList();
+		initData();
 		updateDate();
 	}
 
-	private void initList() {
+	private void initData() {
 
-		reservationAdapter = (ReservationAdapter) getLastNonConfigurationInstance();
-		if (reservationAdapter == null)
+		Map<String, Object> lastState = (Map<String, Object>) getLastNonConfigurationInstance();
+		if (lastState != null) {
+			year = (Integer) lastState.get("year");
+			month = (Integer) lastState.get("month");
+			day = (Integer) lastState.get("day");
+			reservationAdapter = (ReservationAdapter) lastState.get("reservations");
+		} else {
+			Calendar c = Calendar.getInstance();
+			year = c.get(Calendar.YEAR);
+			month = c.get(Calendar.MONTH);
+			day = c.get(Calendar.DAY_OF_MONTH);
 			reservationAdapter = new ReservationAdapter(this, R.layout.row, new ArrayList<Reservation>());
+		}
+		dateLabel = (TextView) findViewById(R.id.dateLabel);
 
 		View header = getLayoutInflater().inflate(R.layout.header_row, null);
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -100,6 +110,11 @@ public class CalendarActivity extends Activity {
 	protected void updateDate() {
 		// Oracle months are counted from zero instead of one
 		dateLabel.setText(String.format("%d.%d.%d", day, month + 1, year));
+	}
+
+	private void updateData() {
+		new FetchReservationsToDate(CalendarActivity.this, messageHandler, reservationAdapter).execute(day, month + 1,
+				year);
 	}
 
 	@Override
@@ -121,6 +136,9 @@ public class CalendarActivity extends Activity {
 			showAbout();
 			Log.d(TAG, "About button pressed");
 			break;
+		case R.id.refresh:
+			updateData();
+			Log.d(TAG, "Refresh data button pressed");
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -173,10 +191,12 @@ public class CalendarActivity extends Activity {
 
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		return reservationAdapter;
+		Map<String, Object> lastState = new HashMap<String, Object>();
+		lastState.put("reservations", reservationAdapter);
+		lastState.put("year", year);
+		lastState.put("month", month);
+		lastState.put("day", day);
+		return lastState;
 	}
 
-	private void displayResponse(ReservationData response) {
-		Toast.makeText(this, response.getResearchGroup(), Toast.LENGTH_LONG).show();
-	}
 }

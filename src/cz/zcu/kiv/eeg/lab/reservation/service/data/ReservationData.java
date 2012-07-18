@@ -23,8 +23,9 @@ public class ReservationData {
 	@Element
 	private String toTime;
 
-	public ReservationData(){}
-	
+	public ReservationData() {
+	}
+
 	public ReservationData(String username, String fromTime, String toTime) {
 		researchGroup = username;
 		this.fromTime = fromTime;
@@ -38,7 +39,7 @@ public class ReservationData {
 	public void setResearchGroup(String researchGroup) {
 		this.researchGroup = researchGroup;
 	}
-	
+
 	public int getResearchGroupId() {
 		return researchGroupId;
 	}
@@ -46,7 +47,7 @@ public class ReservationData {
 	public void setResearchGroupId(int researchGroupId) {
 		this.researchGroupId = researchGroupId;
 	}
-	
+
 	public int getReservationId() {
 		return reservationId;
 	}

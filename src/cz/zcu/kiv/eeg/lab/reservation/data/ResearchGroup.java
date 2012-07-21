@@ -20,7 +20,7 @@ public class ResearchGroup implements Serializable {
 	/**
 	 * Research group name.
 	 */
-	private CharSequence researchGroupName;
+	private String researchGroupName;
 
 	/**
 	 * Creates uninitialized research group object.
@@ -65,7 +65,7 @@ public class ResearchGroup implements Serializable {
 	 * 
 	 * @return research group name
 	 */
-	public CharSequence getResearchGroupName() {
+	public String getResearchGroupName() {
 		return researchGroupName;
 	}
 
@@ -75,7 +75,7 @@ public class ResearchGroup implements Serializable {
 	 * @param researchGroupName
 	 *            research group name
 	 */
-	public void setResearchGroupName(CharSequence researchGroupName) {
+	public void setResearchGroupName(String researchGroupName) {
 		this.researchGroupName = researchGroupName;
 	}
 }

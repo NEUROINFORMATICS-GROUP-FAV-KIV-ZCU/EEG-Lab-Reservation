@@ -9,12 +9,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +20,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
@@ -40,25 +36,7 @@ public class CalendarActivity extends Activity {
 	private int year, month, day;
 	private TextView dateLabel;
 	private ReservationAdapter reservationAdapter;
-	private ProgressDialog wsProgressDialog;
-
-	private Handler messageHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-
-			switch (msg.what) {
-			case Constants.MSG_WORKING_START:
-				wsProgressDialog = ProgressDialog.show(CalendarActivity.this, getString(R.string.ws_working),
-						getString(R.string.ws_working_msg));
-				break;
-			case Constants.MSG_WORKING_DONE:
-				wsProgressDialog.dismiss();
-				break;
-			case Constants.MSG_ERROR:
-				Toast.makeText(CalendarActivity.this, (String) msg.obj, Toast.LENGTH_LONG).show();
-			}
-		}
-	};
+	private ActivityTools activityTools = new ActivityTools(this);
 
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
@@ -113,8 +91,7 @@ public class CalendarActivity extends Activity {
 	}
 
 	private void updateData() {
-		new FetchReservationsToDate(CalendarActivity.this, messageHandler, reservationAdapter).execute(day, month + 1,
-				year);
+		new FetchReservationsToDate(activityTools, reservationAdapter).execute(day, month + 1, year);
 	}
 
 	@Override

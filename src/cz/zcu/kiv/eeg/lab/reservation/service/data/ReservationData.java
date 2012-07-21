@@ -26,8 +26,9 @@ public class ReservationData {
 	public ReservationData() {
 	}
 
-	public ReservationData(String username, String fromTime, String toTime) {
-		researchGroup = username;
+	public ReservationData(int groupId, String groupName, String fromTime, String toTime) {
+		this.researchGroupId = groupId;
+		this.researchGroup = groupName;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
 	}

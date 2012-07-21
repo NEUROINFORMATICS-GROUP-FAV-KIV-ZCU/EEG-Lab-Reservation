@@ -1,16 +1,24 @@
 package cz.zcu.kiv.eeg.lab.reservation.service.data;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 /**
  * Data container for Research Group information.
+ * 
  * @author Petr Miko
- *
+ * 
  */
+@Root(name = "researchGroup")
 public class ResearchGroupData {
 
+	@Element
 	private int groupId;
+	@Element
 	private String groupName;
-	
-	public ResearchGroupData(){}
+
+	public ResearchGroupData() {
+	}
 
 	public int getGroupId() {
 		return groupId;
@@ -27,5 +35,5 @@ public class ResearchGroupData {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-	
+
 }

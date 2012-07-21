@@ -44,14 +44,20 @@ public class SettingsActivity extends Activity {
 		TextView passwordField = (TextView) findViewById(R.id.settings_password_field);
 		TextView urlField = (TextView) findViewById(R.id.settings_url_field);
 
+		String url = urlField.getText().toString();
+
+		if (url != null && !url.endsWith("/"))
+			url += "/";
+
 		editor.putString("username", usernameField.getText().toString());
 		editor.putString("password", passwordField.getText().toString());
-		editor.putString("url", urlField.getText().toString());
+		editor.putString("url", url);
 
 		editor.commit();
 
 		Log.d(TAG, urlField.getText().toString());
 		Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show();
+		finish();
 	}
 
 	@Override

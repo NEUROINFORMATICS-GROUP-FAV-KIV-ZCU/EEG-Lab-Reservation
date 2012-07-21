@@ -1,5 +1,6 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,27 +10,28 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
-import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
+import cz.zcu.kiv.eeg.lab.reservation.service.CreateReservation;
+import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
+import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 
 public class AddRecordActivity extends Activity {
 
 	private static final String TAG = AddRecordActivity.class.getSimpleName();
 
 	private int year, month, day, fromHour, fromMinute, toHour, toMinute;
-	private ArrayAdapter<ResearchGroup> researchGroupAdapter;
+	private ResearchGroupAdapter researchGroupAdapter;
+	private ActivityTools activityTools = new ActivityTools(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class AddRecordActivity extends Activity {
 		day = b.getInt("day");
 
 		initFields();
+		updateData();
 	}
 
 	private void initFields() {
@@ -66,8 +69,10 @@ public class AddRecordActivity extends Activity {
 		Spinner groupList = (Spinner) findViewById(R.id.groupList);
 		groupList.setAdapter(researchGroupAdapter);
 
-		researchGroupAdapter.add(new ResearchGroup(1, "Test group"));
-		researchGroupAdapter.add(new ResearchGroup(2, "Test group 2"));
+	}
+
+	private void updateData() {
+		new FetchResearchGroups(activityTools, researchGroupAdapter).execute();
 	}
 
 	@Override
@@ -118,29 +123,31 @@ public class AddRecordActivity extends Activity {
 	}
 
 	public void addRecordClick(View v) {
-		Intent resultIntent = new Intent();
 
+		SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		try {
-			SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 			Date fromDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, fromHour, fromMinute));
 			Date toDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, toHour, toMinute));
 
 			if (fromDate.getTime() >= toDate.getTime()) {
-				throw new Exception(getString(R.string.error_date_comparison));
+				Toast.makeText(this, R.string.error_date_comparison, Toast.LENGTH_SHORT).show();
 			}
-			ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
 
-			// HACK group adding hard coded, will be filled in accordance
-			// to login into REST WS
-			Reservation record = new Reservation(group.getResearchGroupName(), fromDate, toDate);
-			// TODO REST server validation
-			resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
-			setResult(Activity.RESULT_OK, resultIntent);
-			finish();
-		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
-			Toast errorMsg = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-			errorMsg.show();
+			ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
+			ReservationData record = new ReservationData();
+
+			record.setResearchGroupId(group.getResearchGroupId());
+			record.setResearchGroup(group.getResearchGroupName());
+			record.setFromTime(sf.format(fromDate));
+			record.setToTime(sf.format(toDate));
+
+			new CreateReservation(activityTools).execute(record);
+		} catch (NotFoundException e) {
+			Log.d(TAG, e.getLocalizedMessage(), e);
+			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+		} catch (ParseException e) {
+			Log.d(TAG, e.getLocalizedMessage(), e);
+			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
 }

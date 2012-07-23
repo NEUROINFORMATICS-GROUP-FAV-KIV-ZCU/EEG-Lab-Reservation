@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
+import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
 
 public class SettingsActivity extends Activity {
 
 	private static final String TAG = SettingsActivity.class.getSimpleName();
+
+	private ActivityTools activityTools = new ActivityTools(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +51,16 @@ public class SettingsActivity extends Activity {
 		if (url != null && !url.endsWith("/"))
 			url += "/";
 
-		editor.putString("username", usernameField.getText().toString());
-		editor.putString("password", passwordField.getText().toString());
-		editor.putString("url", url);
-
+		editor.putString("tmp_username", usernameField.getText().toString());
+		editor.putString("tmp_password", passwordField.getText().toString());
+		editor.putString("tmp_url", url);
 		editor.commit();
 
-		Log.d(TAG, urlField.getText().toString());
-		Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show();
-		finish();
+		testCredentials();
+	}
+
+	private void testCredentials() {
+		new TestCredentials(activityTools).execute();
 	}
 
 	@Override

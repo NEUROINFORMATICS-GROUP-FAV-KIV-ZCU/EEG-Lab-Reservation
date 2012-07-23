@@ -74,7 +74,7 @@ public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean>
 			return true;
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage());
-			tools.sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
+			tools.sendMessage(Constants.MSG_ERROR, e);
 		} finally {
 			tools.sendMessage(Constants.MSG_WORKING_DONE, null);
 		}
@@ -96,7 +96,7 @@ public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean>
 				((Activity) tools.context).finish();
 			} catch (ParseException e) {
 				Log.e(TAG, e.getLocalizedMessage());
-				tools.sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
+				tools.sendMessage(Constants.MSG_ERROR, e);
 			}
 		}
 	}

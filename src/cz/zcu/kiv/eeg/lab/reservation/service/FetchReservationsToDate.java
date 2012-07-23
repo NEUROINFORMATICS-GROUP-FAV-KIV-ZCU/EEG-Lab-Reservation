@@ -84,7 +84,7 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage(), e);
-			tools.sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
+			tools.sendMessage(Constants.MSG_ERROR, e);
 		} finally {
 			tools.sendMessage(Constants.MSG_WORKING_DONE, null);
 		}
@@ -103,7 +103,7 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 					Reservation reservation = new Reservation(res.getResearchGroup(), fromTime, toTime);
 					reservationAdapter.add(reservation);
 				} catch (Exception e) {
-					tools.sendMessage(Constants.MSG_ERROR, e.getLocalizedMessage());
+					tools.sendMessage(Constants.MSG_ERROR, e);
 					Log.e(TAG, e.getLocalizedMessage(), e);
 				}
 			}

@@ -70,16 +70,25 @@ public final class R {
         public static final int app_overview=0x7f040001;
         public static final int app_refresh=0x7f040002;
         public static final int app_settings=0x7f040003;
-        public static final int date_format=0x7f040020;
-        public static final int dummy_date=0x7f04001d;
-        public static final int dummy_from=0x7f04001e;
-        public static final int dummy_to=0x7f04001f;
-        public static final int error_connection=0x7f040021;
-        public static final int error_date_comparison=0x7f040022;
+        public static final int date_format=0x7f040021;
+        public static final int dummy_date=0x7f04001e;
+        public static final int dummy_from=0x7f04001f;
+        public static final int dummy_to=0x7f040020;
+        public static final int error_connection=0x7f040022;
+        public static final int error_date_comparison=0x7f040023;
+        public static final int error_unknown_host=0x7f040024;
+        public static final int http_400=0x7f040025;
+        public static final int http_401=0x7f040026;
+        public static final int http_403=0x7f040027;
+        public static final int http_404=0x7f040028;
+        public static final int http_405=0x7f040029;
+        public static final int http_408=0x7f04002a;
+        public static final int http_500=0x7f04002b;
+        public static final int http_503=0x7f04002c;
         public static final int login_button=0x7f040009;
         public static final int main_add_time=0x7f040010;
         public static final int main_date=0x7f04000f;
-        public static final int main_date_label=0x7f040023;
+        public static final int main_date_label=0x7f04002d;
         public static final int menu_cancel=0x7f040008;
         public static final int menu_ok=0x7f040007;
         public static final int refresh_button=0x7f04000a;
@@ -90,8 +99,9 @@ public final class R {
         public static final int settings_url=0x7f04000b;
         public static final int settings_username=0x7f04000c;
         public static final int working=0x7f040019;
-        public static final int working_ws_create=0x7f04001c;
-        public static final int working_ws_groups=0x7f04001b;
+        public static final int working_ws_create=0x7f04001d;
+        public static final int working_ws_groups=0x7f04001c;
+        public static final int working_ws_login=0x7f04001b;
         public static final int working_ws_msg=0x7f04001a;
     }
 }

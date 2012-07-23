@@ -31,6 +31,7 @@
     <string name="add_save">Save</string>
     <string name="working">Working</string>
     <string name="working_ws_msg">Ongoing communication with web service…</string>
+    <string name="working_ws_login">Veryfing login information…</string>
     <string name="working_ws_groups">Downloading available research groups…</string>
     <string name="working_ws_create">Creating new record…</string>
     <string name="dummy_date">DATE</string>
@@ -39,4 +40,13 @@
     <string name="date_format">dd-mm-yyyy</string>
     <string name="error_connection">Connection to server issues occured. Try again later.</string>
 	<string name="error_date_comparison">Reservation action cannot end before it even started!</string>
+	<string name="error_unknown_host">Invalid host name/address!</string>
+	<string name="http_400">Application made invalid request towards server.</string>
+	<string name="http_401">Invalid login information.</string>
+	<string name="http_403">You do not have permissions for such request.</string>
+	<string name="http_404">Resource URL not found.</string>
+	<string name="http_405">Request method not allowed.</string>
+	<string name="http_408">Request timed out.</string>
+	<string name="http_500">Internal server error. Try again later.</string>
+	<string name="http_503">Service is currently unavailable. Try again later.</string>
 </resources>

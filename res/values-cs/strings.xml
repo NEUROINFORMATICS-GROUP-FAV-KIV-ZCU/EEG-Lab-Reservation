@@ -31,6 +31,7 @@
     <string name="add_change">Změnit čas</string>
     <string name="add_save">Uložit</string>
     <string name="working">Pracuji</string>
+    <string name="working_ws_login">Ověřuji přihlašovací informace…</string>
     <string name="working_ws_msg">Probíhá komunikace s webovou službou…</string>
     <string name="working_ws_groups">Stahují se dostupné výzkumné skupiny…</string>
     <string name="working_ws_create">Vytváření nového záznamu…</string>
@@ -39,5 +40,14 @@
     <string name="dummy_to">DO</string>
     <string name="error_connection">Vyskytly se potíže s připojením k serveru. Zkuste později.</string>
     <string name="error_date_comparison">Rezervace nemůže skončit, než vůbec začala!</string>
+    <string name="error_unknown_host">Neplatná adresa!</string>
+    <string name="http_400">Aplikace vykonala neplatný požadavek na server.</string>
+    <string name="http_401">Neplatné přihlašovací údaje.</string>
+	<string name="http_403">Nemáte práva potřebná k požadovanému úkonu.</string>
+	<string name="http_404">URL zdroje nenalezena.</string>
+	<string name="http_405">Požadavek není povolen.</string>
+	<string name="http_408">Vypršela doba požadavku.</string>
+	<string name="http_500">Nastala chyba serveru. Zkuste znovu později.</string>
+	<string name="http_503">Služba je dočasně nedostupná. Zkuste znovu později.</string>
 
 </resources>

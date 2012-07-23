@@ -1,5 +1,10 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
+import java.net.UnknownHostException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -23,7 +28,8 @@ public class ActivityTools {
 
 			switch (msg.what) {
 			case Constants.MSG_WORKING_START:
-				wsProgressDialog = ProgressDialog.show(context, context.getString(R.string.working), (String) msg.obj);
+				wsProgressDialog = ProgressDialog.show(context, context.getString(R.string.working), (String) msg.obj,
+						true, true);
 				break;
 			case Constants.MSG_WORKING_DONE:
 				wsProgressDialog.dismiss();
@@ -37,7 +43,46 @@ public class ActivityTools {
 	public void sendMessage(int messageCode, Object body) {
 		Message msg = Message.obtain();
 		msg.what = messageCode;
-		msg.obj = body;
+
+		if (messageCode == Constants.MSG_ERROR) {
+			if (body instanceof Exception) {
+				msg.obj = getErrorMessage((Exception) body);
+			} else {
+				msg.obj = body;
+			}
+		} else {
+			msg.obj = body;
+		}
 		messageHandler.sendMessage(msg);
+	}
+
+	private String getErrorMessage(Exception exception) {
+
+		if (exception instanceof HttpClientErrorException) {
+			HttpClientErrorException httpException = (HttpClientErrorException) exception;
+
+			if (HttpStatus.BAD_REQUEST.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_400);
+			} else if (HttpStatus.UNAUTHORIZED.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_401);
+			} else if (HttpStatus.FORBIDDEN.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_403);
+			} else if (HttpStatus.NOT_FOUND.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_404);
+			} else if (HttpStatus.METHOD_NOT_ALLOWED.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_405);
+			} else if (HttpStatus.REQUEST_TIMEOUT.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_408);
+			} else if (HttpStatus.INTERNAL_SERVER_ERROR.equals(R.string.http_500)) {
+				return context.getString(R.string.http_500);
+			} else if (HttpStatus.SERVICE_UNAVAILABLE.equals(httpException.getStatusCode())) {
+				return context.getString(R.string.http_503);
+			}
+		}
+
+		if (exception.getCause() instanceof UnknownHostException)
+			return context.getString(R.string.error_unknown_host);
+
+		return exception.getLocalizedMessage();
 	}
 }

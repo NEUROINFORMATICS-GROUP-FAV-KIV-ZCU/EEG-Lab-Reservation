@@ -17,9 +17,10 @@ public final class R {
     public static final class id {
         public static final int GridLayout1=0x7f060000;
         public static final int RelativeLayout1=0x7f06000d;
-        public static final int about=0x7f06001c;
+        public static final int about=0x7f06001e;
         public static final int addRecord=0x7f06000f;
         public static final int addRecordButton=0x7f06000b;
+        public static final int app_name_label=0x7f06001b;
         public static final int bottomtext=0x7f060012;
         public static final int chooseDate=0x7f06000e;
         public static final int dateField=0x7f060002;
@@ -31,8 +32,9 @@ public final class R {
         public static final int groupList=0x7f060004;
         public static final int list=0x7f060010;
         public static final int login_button=0x7f060019;
-        public static final int refresh=0x7f06001a;
-        public static final int settings=0x7f06001b;
+        public static final int logo=0x7f06001a;
+        public static final int refresh=0x7f06001c;
+        public static final int settings=0x7f06001d;
         public static final int settings_password_field=0x7f060016;
         public static final int settings_password_label=0x7f060015;
         public static final int settings_url_field=0x7f060018;
@@ -52,6 +54,7 @@ public final class R {
         public static final int main=0x7f030003;
         public static final int row=0x7f030004;
         public static final int settings=0x7f030005;
+        public static final int welcome=0x7f030006;
     }
     public static final class menu {
         public static final int main_menu=0x7f050000;
@@ -86,9 +89,10 @@ public final class R {
         public static final int http_500=0x7f04002b;
         public static final int http_503=0x7f04002c;
         public static final int login_button=0x7f040009;
+        public static final int logo=0x7f04002d;
         public static final int main_add_time=0x7f040010;
         public static final int main_date=0x7f04000f;
-        public static final int main_date_label=0x7f04002d;
+        public static final int main_date_label=0x7f04002e;
         public static final int menu_cancel=0x7f040008;
         public static final int menu_ok=0x7f040007;
         public static final int refresh_button=0x7f04000a;

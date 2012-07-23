@@ -15,11 +15,13 @@ import org.springframework.web.client.RestTemplate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.ActivityTools;
+import cz.zcu.kiv.eeg.lab.reservation.CalendarActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupDataList;
@@ -30,9 +32,11 @@ public class TestCredentials extends AsyncTask<Void, Void, Boolean> {
 	private final static String TAG = TestCredentials.class.getSimpleName();
 
 	private ActivityTools tools;
+	private boolean startupTest;
 
-	public TestCredentials(ActivityTools tools) {
+	public TestCredentials(ActivityTools tools, boolean startupTest) {
 		this.tools = tools;
+		this.startupTest = startupTest;
 	}
 
 	@Override
@@ -74,10 +78,10 @@ public class TestCredentials extends AsyncTask<Void, Void, Boolean> {
 	}
 
 	@Override
-	protected void onPostExecute(Boolean resultList) {
+	protected void onPostExecute(Boolean verified) {
 		SharedPreferences credentials = tools.context.getSharedPreferences(Constants.PREFS_CREDENTIALS,
 				Context.MODE_PRIVATE);
-		if (resultList) {
+		if (verified) {
 			String username = credentials.getString("tmp_username", null);
 			String password = credentials.getString("tmp_password", null);
 			String url = credentials.getString("tmp_url", null);
@@ -89,7 +93,11 @@ public class TestCredentials extends AsyncTask<Void, Void, Boolean> {
 			editor.commit();
 
 			Toast.makeText(tools.context, R.string.settings_saved, Toast.LENGTH_SHORT).show();
-			((Activity) tools.context).finish();
+
+			if (startupTest)
+				tools.context.startActivity(new Intent(tools.context, CalendarActivity.class));
+			else
+				((Activity) tools.context).finish();
 		}
 	}
 

@@ -60,6 +60,7 @@ public class CalendarActivity extends Activity {
 
 		initData();
 		updateDate();
+		updateData();
 	}
 
 	private void initData() {

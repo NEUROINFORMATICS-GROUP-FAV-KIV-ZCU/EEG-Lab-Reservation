@@ -1,41 +1,26 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
 
-public class SettingsActivity extends Activity {
+public class WelcomeActivity extends Activity {
 
-	private static final String TAG = SettingsActivity.class.getSimpleName();
+	private final static String TAG = WelcomeActivity.class.getSimpleName();
 
 	private ActivityTools activityTools = new ActivityTools(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG, "Settings screen");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings);
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-
-		SharedPreferences credentials = getSharedPreferences(Constants.PREFS_CREDENTIALS, Context.MODE_PRIVATE);
-		CharSequence username = credentials.getString("username", null);
-		CharSequence password = credentials.getString("password", null);
-		CharSequence url = credentials.getString("url", "http://");
-		TextView usernameField = (TextView) findViewById(R.id.settings_username_field);
-		TextView passwordField = (TextView) findViewById(R.id.settings_password_field);
-		TextView urlField = (TextView) findViewById(R.id.settings_url_field);
-		usernameField.setText(username);
-		passwordField.setText(password);
-		urlField.setText(url);
+		Log.d(TAG, "Welcome activity displayed");
+		setContentView(R.layout.welcome);
 	}
 
 	public void loginClick(View v) {
@@ -60,18 +45,7 @@ public class SettingsActivity extends Activity {
 	}
 
 	private void testCredentials() {
-		new TestCredentials(activityTools, false).execute();
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			break;
-		}
-		return super.onOptionsItemSelected(item);
+		new TestCredentials(activityTools, true).execute();
 	}
 
 }

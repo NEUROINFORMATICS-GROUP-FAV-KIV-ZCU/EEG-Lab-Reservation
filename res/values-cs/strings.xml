@@ -49,5 +49,5 @@
 	<string name="http_408">Vypršela doba požadavku.</string>
 	<string name="http_500">Nastala chyba serveru. Zkuste znovu později.</string>
 	<string name="http_503">Služba je dočasně nedostupná. Zkuste znovu později.</string>
-
+	<string name="logo">Logo</string>
 </resources>

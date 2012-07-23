@@ -60,7 +60,6 @@ public class CalendarActivity extends Activity {
 
 		initData();
 		updateDate();
-		updateData();
 	}
 
 	private void initData() {
@@ -77,6 +76,7 @@ public class CalendarActivity extends Activity {
 			month = c.get(Calendar.MONTH);
 			day = c.get(Calendar.DAY_OF_MONTH);
 			reservationAdapter = new ReservationAdapter(this, R.layout.row, new ArrayList<Reservation>());
+			updateData();
 		}
 		dateLabel = (TextView) findViewById(R.id.dateLabel);
 

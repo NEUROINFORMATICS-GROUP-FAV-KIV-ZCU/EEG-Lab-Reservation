@@ -92,7 +92,4 @@
             android:inputType="textUri" />
     </TableRow>
 
-    <TableRow>
-    </TableRow>
-
 </TableLayout>

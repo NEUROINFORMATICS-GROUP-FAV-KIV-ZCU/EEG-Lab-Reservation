@@ -1,28 +1,16 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.app.*;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.*;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.*;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
-import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
+import cz.zcu.kiv.eeg.lab.reservation.data.*;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchReservationsToDate;
 
 /**
@@ -30,13 +18,13 @@ import cz.zcu.kiv.eeg.lab.reservation.service.FetchReservationsToDate;
  * @author Petr Miko
  * 
  */
-public class CalendarActivity extends Activity {
+public class CalendarActivity extends ProgressActivity {
 
 	private static final String TAG = CalendarActivity.class.getSimpleName();
 	private int year, month, day;
 	private TextView dateLabel;
 	private ReservationAdapter reservationAdapter;
-	private ActivityTools activityTools = new ActivityTools(this);
+	private ProgressDialog wsProgressDialog;
 
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
@@ -92,7 +80,7 @@ public class CalendarActivity extends Activity {
 	}
 
 	private void updateData() {
-		new FetchReservationsToDate(activityTools, reservationAdapter).execute(day, month + 1, year);
+		new FetchReservationsToDate(this, reservationAdapter).execute(day, month + 1, year);
 	}
 
 	@Override
@@ -122,15 +110,7 @@ public class CalendarActivity extends Activity {
 	}
 
 	private void showAbout() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.app_about_description).setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-		builder.create().show();
+		showAlert(getString(R.string.app_about_description));
 	}
 
 	public void addRecordClick(View v) {
@@ -156,9 +136,6 @@ public class CalendarActivity extends Activity {
 		switch (requestCode) {
 		case (Constants.ADD_RECORD_FLAG): {
 			if (resultCode == Activity.RESULT_OK) {
-				// HACK just for testing of additions from AddRecordActivity
-				// will be replaced with loading from REST web service, when
-				// adding was OK.
 				Reservation record = (Reservation) data.getExtras().get(Constants.ADD_RECORD_KEY);
 				reservationAdapter.add(record);
 			}
@@ -175,6 +152,29 @@ public class CalendarActivity extends Activity {
 		lastState.put("month", month);
 		lastState.put("day", day);
 		return lastState;
+	}
+
+	@Override
+	public void changeProgress(final ProgressState messageType, final Message message) {
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				switch (messageType) {
+				case RUNNING:
+					wsProgressDialog = ProgressDialog.show(CalendarActivity.this, getString(R.string.working),
+							(String) message.obj, true, true);
+					break;
+				case INACTIVE:
+				case DONE:
+					wsProgressDialog.dismiss();
+					break;
+				case ERROR:
+					showAlert(message.obj.toString());
+				default:
+					break;
+				}
+			}
+		});
 	}
 
 }

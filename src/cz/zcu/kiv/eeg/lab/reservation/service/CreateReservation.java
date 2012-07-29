@@ -1,42 +1,37 @@
 package cz.zcu.kiv.eeg.lab.reservation.service;
 
+import static cz.zcu.kiv.eeg.lab.reservation.data.ProgressState.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-import cz.zcu.kiv.eeg.lab.reservation.ActivityTools;
+import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 
-public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean> {
+public class CreateReservation extends ProgressService<ReservationData, Void, Boolean> {
 
 	private static final String TAG = CreateReservation.class.getSimpleName();
 	private static SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-	private ActivityTools tools;
 	private ReservationData data;
 
-	public CreateReservation(ActivityTools tools) {
-		this.tools = tools;
+	public CreateReservation(ProgressActivity context) {
+		super(context);
 	}
 
 	@Override
@@ -50,10 +45,9 @@ public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean>
 
 		try {
 
-			tools.sendMessage(Constants.MSG_WORKING_START, tools.context.getString(R.string.working_ws_create));
+			changeProgress(RUNNING, R.string.working_ws_create);
 
-			SharedPreferences credentials = tools.context.getSharedPreferences(Constants.PREFS_CREDENTIALS,
-					Context.MODE_PRIVATE);
+			SharedPreferences credentials = getCredentials();
 			String username = credentials.getString("username", null);
 			String password = credentials.getString("password", null);
 			String url = credentials.getString("url", null);
@@ -74,9 +68,9 @@ public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean>
 			return true;
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage());
-			tools.sendMessage(Constants.MSG_ERROR, e);
+			changeProgress(ERROR, e);
 		} finally {
-			tools.sendMessage(Constants.MSG_WORKING_DONE, null);
+			changeProgress(DONE, null);
 		}
 		return false;
 	}
@@ -90,13 +84,12 @@ public class CreateReservation extends AsyncTask<ReservationData, Void, Boolean>
 				Reservation record = new Reservation(data.getResearchGroup(), sf.parse(data.getFromTime()),
 						sf.parse(data.getToTime()));
 				resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
-				Toast.makeText(tools.context, tools.context.getString(R.string.reservation_created), Toast.LENGTH_SHORT)
-						.show();
-				((Activity) tools.context).setResult(Activity.RESULT_OK, resultIntent);
-				((Activity) tools.context).finish();
+				Toast.makeText(activity, activity.getString(R.string.reservation_created), Toast.LENGTH_SHORT).show();
+				activity.setResult(Activity.RESULT_OK, resultIntent);
+				activity.finish();
 			} catch (ParseException e) {
 				Log.e(TAG, e.getLocalizedMessage());
-				tools.sendMessage(Constants.MSG_ERROR, e);
+				changeProgress(ERROR, e);
 			}
 		}
 	}

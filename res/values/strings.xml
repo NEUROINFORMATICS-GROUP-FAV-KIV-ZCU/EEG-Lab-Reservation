@@ -41,9 +41,7 @@
     <string name="error_connection">Connection to server issues occured. Try again later.</string>
 	<string name="error_date_comparison">Reservation action cannot end before it even started!</string>
 	<string name="error_unknown_host">Invalid host name/address!</string>
-	<string name="error_empty_username">Username must be entered!</string>
-	<string name="error_empty_password">Password must be entered!</string>
-	<string name="error_empty_url">Service URL must be entered!</string>
+	<string name="error_invalid_password">Password must be entered!</string>
 	<string name="error_invalid_url">Entered value is not invalid URL!</string>
 	<string name="error_invalid_username">Username must be an email!</string>
 	<string name="http_400">Application made invalid request towards server.</string>

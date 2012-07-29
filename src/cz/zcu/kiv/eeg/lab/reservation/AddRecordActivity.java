@@ -2,36 +2,30 @@ package cz.zcu.kiv.eeg.lab.reservation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.TimePickerDialog;
+import android.app.*;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.res.Resources.NotFoundException;
-import android.os.Bundle;
+import android.os.*;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
+import android.widget.*;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
+import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.CreateReservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 
-public class AddRecordActivity extends Activity {
+public class AddRecordActivity extends ProgressActivity {
 
 	private static final String TAG = AddRecordActivity.class.getSimpleName();
 
 	private int year, month, day, fromHour, fromMinute, toHour, toMinute;
 	private ResearchGroupAdapter researchGroupAdapter;
-	private ActivityTools activityTools = new ActivityTools(this);
+	private ProgressDialog wsProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +66,7 @@ public class AddRecordActivity extends Activity {
 	}
 
 	private void updateData() {
-		new FetchResearchGroups(activityTools, researchGroupAdapter).execute();
+		new FetchResearchGroups(this, researchGroupAdapter).execute();
 	}
 
 	@Override
@@ -131,6 +125,7 @@ public class AddRecordActivity extends Activity {
 
 			if (fromDate.getTime() >= toDate.getTime()) {
 				Toast.makeText(this, R.string.error_date_comparison, Toast.LENGTH_SHORT).show();
+				return;
 			}
 
 			ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
@@ -141,7 +136,7 @@ public class AddRecordActivity extends Activity {
 			record.setFromTime(sf.format(fromDate));
 			record.setToTime(sf.format(toDate));
 
-			new CreateReservation(activityTools).execute(record);
+			new CreateReservation(this).execute(record);
 		} catch (NotFoundException e) {
 			Log.d(TAG, e.getLocalizedMessage(), e);
 			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -149,5 +144,28 @@ public class AddRecordActivity extends Activity {
 			Log.d(TAG, e.getLocalizedMessage(), e);
 			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	@Override
+	public void changeProgress(final ProgressState messageType, final Message message) {
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				switch (messageType) {
+				case RUNNING:
+					wsProgressDialog = ProgressDialog.show(AddRecordActivity.this, getString(R.string.working),
+							(String) message.obj, true, true);
+					break;
+				case INACTIVE:
+				case DONE:
+					wsProgressDialog.dismiss();
+					break;
+				case ERROR:
+					showAlert(message.obj.toString());
+				default:
+					break;
+				}
+			}
+		});
 	}
 }

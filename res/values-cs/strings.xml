@@ -41,9 +41,7 @@
     <string name="error_connection">Vyskytly se potíže s připojením k serveru. Zkuste později.</string>
     <string name="error_date_comparison">Rezervace nemůže skončit, než vůbec začala!</string>
     <string name="error_unknown_host">Neplatná adresa!</string>
-    <string name="error_empty_username">Uživatelské jméno nemůže být prázdné!</string>
-	<string name="error_empty_password">Heslo nemůže být prázdné!</string>
-	<string name="error_empty_url">URL služby nemůže být prázdná!</string>
+	<string name="error_invalid_password">Heslo nemůže být prázdné!</string>
 	<string name="error_invalid_url">Zadaná hodnota není platnou URL!</string>
 	<string name="error_invalid_username">Uživatelské jméno musí mít podobu mailové adresy!</string>
     <string name="http_400">Aplikace vykonala neplatný požadavek na server.</string>

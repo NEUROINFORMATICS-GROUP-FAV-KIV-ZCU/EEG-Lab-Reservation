@@ -1,53 +1,44 @@
 package cz.zcu.kiv.eeg.lab.reservation.service;
 
+import static cz.zcu.kiv.eeg.lab.reservation.data.ProgressState.*;
+
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
-import cz.zcu.kiv.eeg.lab.reservation.ActivityTools;
+import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupData;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 
-public class FetchResearchGroups extends AsyncTask<Void, Void, List<ResearchGroupData>> {
+public class FetchResearchGroups extends ProgressService<Void, Void, List<ResearchGroupData>> {
 
 	private static final String TAG = FetchResearchGroups.class.getSimpleName();
 
-	private ActivityTools tools;
 	private ResearchGroupAdapter groupAdapter;
 
-	public FetchResearchGroups(ActivityTools tools, ResearchGroupAdapter groupAdapter) {
-		this.tools = tools;
+	public FetchResearchGroups(ProgressActivity activity, ResearchGroupAdapter groupAdapter) {
+		super(activity);
 		this.groupAdapter = groupAdapter;
 	}
 
 	@Override
 	protected List<ResearchGroupData> doInBackground(Void... params) {
-		SharedPreferences credentials = tools.context.getSharedPreferences(Constants.PREFS_CREDENTIALS,
-				Context.MODE_PRIVATE);
+		SharedPreferences credentials = getCredentials();
 		String username = credentials.getString("username", null);
 		String password = credentials.getString("password", null);
 		String url = credentials.getString("url", null) + "groups";
 
-		tools.sendMessage(Constants.MSG_WORKING_START, tools.context.getString(R.string.working_ws_groups));
+		changeProgress(RUNNING, R.string.working_ws_groups);
 		HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setAuthorization(authHeader);
@@ -72,9 +63,9 @@ public class FetchResearchGroups extends AsyncTask<Void, Void, List<ResearchGrou
 
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage(), e);
-			tools.sendMessage(Constants.MSG_ERROR, e);
+			changeProgress(ERROR, e);
 		} finally {
-			tools.sendMessage(Constants.MSG_WORKING_DONE, null);
+			changeProgress(DONE, null);
 		}
 		return Collections.emptyList();
 	}

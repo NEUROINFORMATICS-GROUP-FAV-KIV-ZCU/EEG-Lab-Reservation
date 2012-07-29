@@ -1,50 +1,39 @@
 package cz.zcu.kiv.eeg.lab.reservation.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import static cz.zcu.kiv.eeg.lab.reservation.data.ProgressState.*;
 
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
-import cz.zcu.kiv.eeg.lab.reservation.ActivityTools;
+import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 
-public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<ReservationData>> {
+public class FetchReservationsToDate extends ProgressService<Integer, Void, List<ReservationData>> {
 
 	private static final String TAG = FetchReservationsToDate.class.getSimpleName();
 
-	private ActivityTools tools;
 	private ReservationAdapter reservationAdapter;
 
-	public FetchReservationsToDate(ActivityTools tools, ReservationAdapter reservationAdapter) {
-		this.tools = tools;
+	public FetchReservationsToDate(ProgressActivity activity, ReservationAdapter reservationAdapter) {
+		super(activity);
 		this.reservationAdapter = reservationAdapter;
 	}
 
 	@Override
 	protected List<ReservationData> doInBackground(Integer... params) {
-		SharedPreferences credentials = tools.context.getSharedPreferences(Constants.PREFS_CREDENTIALS,
-				Context.MODE_PRIVATE);
+		SharedPreferences credentials = getCredentials();
 		String username = credentials.getString("username", null);
 		String password = credentials.getString("password", null);
 		String url = credentials.getString("url", null);
@@ -53,11 +42,11 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 			url = url + params[0] + "-" + params[1] + "-" + params[2];
 		} else {
 			Log.e(TAG, "Invalid params count! Must be 3 in order of year, month, day");
-			tools.sendMessage(Constants.MSG_ERROR, "Invalid params count! Must be 3 in order of year, month, day");
+			changeProgress(ERROR, "Invalid params count! Must be 3 in order of year, month, day");
 			return Collections.emptyList();
 		}
 
-		tools.sendMessage(Constants.MSG_WORKING_START, tools.context.getString(R.string.working_ws_msg));
+		changeProgress(RUNNING, R.string.working_ws_msg);
 
 		// Populate the HTTP Basic Authentication header with the username and
 		// password
@@ -84,9 +73,9 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage(), e);
-			tools.sendMessage(Constants.MSG_ERROR, e);
+			changeProgress(ERROR, e);
 		} finally {
-			tools.sendMessage(Constants.MSG_WORKING_DONE, null);
+			changeProgress(DONE, null);
 		}
 		return Collections.emptyList();
 	}
@@ -103,7 +92,7 @@ public class FetchReservationsToDate extends AsyncTask<Integer, Void, List<Reser
 					Reservation reservation = new Reservation(res.getResearchGroup(), fromTime, toTime);
 					reservationAdapter.add(reservation);
 				} catch (Exception e) {
-					tools.sendMessage(Constants.MSG_ERROR, e);
+					changeProgress(ERROR, e);
 					Log.e(TAG, e.getLocalizedMessage(), e);
 				}
 			}

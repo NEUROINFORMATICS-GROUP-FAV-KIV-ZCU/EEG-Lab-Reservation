@@ -1,25 +1,23 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.os.*;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.TextView;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
+import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
+import cz.zcu.kiv.eeg.lab.reservation.utils.ValidationUtils;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends ProgressActivity {
 
 	private static final String TAG = SettingsActivity.class.getSimpleName();
-
-	private ActivityTools activityTools = new ActivityTools(this);
+	private ProgressDialog wsProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +56,11 @@ public class SettingsActivity extends Activity {
 
 		StringBuilder error = new StringBuilder();
 
-		if (username == null || username.isEmpty())
-			error.append(getString(R.string.error_empty_username)).append('\n');
-		else if (!activityTools.isEmailValid(username))
+		if (ValidationUtils.isUsernameFormatInvalid(username))
 			error.append(getString(R.string.error_invalid_username)).append('\n');
-		if (password == null || password.isEmpty())
-			error.append(getString(R.string.error_empty_password)).append('\n');
-		if (url == null || url.isEmpty())
-			error.append(getString(R.string.error_empty_url)).append('\n');
-		else if (!URLUtil.isValidUrl(url) || "http://".equals(url) || "https://".equals(url))
+		if (ValidationUtils.isPasswordFormatInvalid(password))
+			error.append(getString(R.string.error_invalid_password)).append('\n');
+		if (ValidationUtils.isUrlFormatInvalid(url))
 			error.append(getString(R.string.error_invalid_url)).append('\n');
 
 		if (error.toString().isEmpty()) {
@@ -79,17 +73,9 @@ public class SettingsActivity extends Activity {
 			editor.putString("tmp_url", url);
 			editor.commit();
 
-			new TestCredentials(activityTools, true).execute();
+			new TestCredentials(this, true).execute();
 		} else {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(error.toString()).setCancelable(false)
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-			builder.create().show();
+			showAlert(error.toString());
 		}
 	}
 
@@ -102,6 +88,29 @@ public class SettingsActivity extends Activity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void changeProgress(final ProgressState messageType, final Message message) {
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				switch (messageType) {
+				case RUNNING:
+					wsProgressDialog = ProgressDialog.show(SettingsActivity.this, getString(R.string.working),
+							(String) message.obj, true, true);
+					break;
+				case INACTIVE:
+				case DONE:
+					wsProgressDialog.dismiss();
+					break;
+				case ERROR:
+					showAlert(message.obj.toString());
+				default:
+					break;
+				}
+			}
+		});
 	}
 
 }

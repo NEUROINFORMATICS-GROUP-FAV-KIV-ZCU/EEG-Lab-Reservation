@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TableRow>
-
+        
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
@@ -14,8 +14,8 @@
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/logo"
             android:paddingLeft="10dip"
-            android:src="@drawable/eeg_reservation" />
-
+            android:src="@drawable/icon" />
+
         <TextView
             android:id="@+id/app_name_label"
             android:layout_width="0dp"

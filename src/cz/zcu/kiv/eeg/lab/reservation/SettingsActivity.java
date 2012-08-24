@@ -39,7 +39,7 @@ public class SettingsActivity extends ProgressActivity {
 		urlField.setText(url);
 	}
 
-	public void loginClick(View v) {
+	public void updateClick(View v) {
 
 		TextView usernameField = (TextView) findViewById(R.id.settings_username_field);
 		TextView passwordField = (TextView) findViewById(R.id.settings_password_field);

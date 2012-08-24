@@ -93,6 +93,16 @@ public class CalendarActivity extends ProgressActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.addRecord:
+			Log.d(TAG, "Add new booking time chosen");
+			Intent intent = new Intent(this, AddRecordActivity.class);
+			Bundle b = new Bundle();
+			b.putInt("year", year);
+			b.putInt("month", month);
+			b.putInt("day", day);
+			intent.putExtras(b);
+			startActivityForResult(intent, Constants.ADD_RECORD_FLAG);
+			break;
 		case R.id.settings:
 			Log.d(TAG, "Settings button pressed");
 			Intent settingsIntent = new Intent(this, SettingsActivity.class);
@@ -111,17 +121,6 @@ public class CalendarActivity extends ProgressActivity {
 
 	private void showAbout() {
 		showAlert(getString(R.string.app_about_description));
-	}
-
-	public void addRecordClick(View v) {
-		Log.d(TAG, "Add new booking time chosen");
-		Intent intent = new Intent(this, AddRecordActivity.class);
-		Bundle b = new Bundle();
-		b.putInt("year", year);
-		b.putInt("month", month);
-		b.putInt("day", day);
-		intent.putExtras(b);
-		startActivityForResult(intent, Constants.ADD_RECORD_FLAG);
 	}
 
 	public void chooseDateClick(View v) {

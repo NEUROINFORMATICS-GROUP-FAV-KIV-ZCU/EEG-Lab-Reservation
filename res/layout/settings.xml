@@ -62,15 +62,17 @@
     </TableRow>
 
     <TableRow>
-
+
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/update_button"
             android:layout_width="0dp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:text="@string/login_button"
-            android:onClick="loginClick" />
+            android:drawableLeft="@drawable/ic_action_save"
+            android:onClick="updateClick"
+            android:text="@string/settings_update" />
+
     </TableRow>
 
 </TableLayout>

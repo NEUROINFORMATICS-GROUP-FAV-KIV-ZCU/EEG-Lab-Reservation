@@ -10,7 +10,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/logo"
-            android:src="@drawable/icon" />
+            android:src="@drawable/ic_launcher" />
 
     </TableRow>
     
@@ -83,15 +83,17 @@
     </TableRow>
 
     <TableRow>
-
+
         <Button
             android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:text="@string/login_button"
-            android:onClick="loginClick" />
+            android:drawableLeft="@drawable/ic_action_login"
+            android:onClick="loginClick"
+            android:text="@string/login_button" />
+
     </TableRow>
 
 </TableLayout>

@@ -14,22 +14,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_column="0"
         android:layout_row="0" />
-
+
     <Button
         android:id="@+id/chooseDate"
         android:layout_column="0"
         android:layout_gravity="fill_horizontal"
         android:layout_row="1"
+        android:drawableTop="@drawable/ic_action_date"
         android:onClick="chooseDateClick"
         android:text="@string/main_date" />
-
-    <Button
-        android:id="@+id/addRecord"
-        android:layout_column="0"
-        android:layout_gravity="fill_horizontal"
-        android:layout_row="2"
-        android:onClick="addRecordClick"
-        android:text="@string/main_add_time" />
 
     <ListView
         android:id="@+id/list"

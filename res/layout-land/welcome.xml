@@ -14,7 +14,7 @@
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/logo"
             android:paddingLeft="10dip"
-            android:src="@drawable/icon" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/app_name_label"
@@ -24,12 +24,13 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <Button
             android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_action_login"
             android:onClick="loginClick"
             android:text="@string/login_button" />
 

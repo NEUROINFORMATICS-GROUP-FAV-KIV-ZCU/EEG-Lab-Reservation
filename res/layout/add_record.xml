@@ -43,12 +43,13 @@
             android:layout_row="1" >
 
         </Spinner>
-
+
         <Button
             android:id="@+id/fromTimeButton"
             android:layout_column="3"
             android:layout_gravity="center_vertical|right"
             android:layout_row="2"
+            android:drawableLeft="@drawable/ic_action_time"
             android:onClick="fromTimeClick"
             android:text="@string/add_change" />
 
@@ -75,12 +76,13 @@
             android:layout_gravity="center_vertical"
             android:layout_row="3"
             android:text="@string/add_to_label" />
-
+
         <Button
             android:id="@+id/toTimeButton"
             android:layout_column="3"
             android:layout_gravity="center_vertical|right"
             android:layout_row="3"
+            android:drawableLeft="@drawable/ic_action_time"
             android:onClick="toTimeClick"
             android:text="@string/add_change" />
 
@@ -91,7 +93,7 @@
             android:layout_row="3"
             android:paddingLeft="15sp"
             android:text="@string/dummy_to" />
-
+
         <Button
             android:id="@+id/addRecordButton"
             android:layout_width="match_parent"
@@ -99,8 +101,10 @@
             android:layout_columnSpan="4"
             android:layout_gravity="left"
             android:layout_row="4"
+            android:drawableLeft="@drawable/ic_action_save"
             android:onClick="addRecordClick"
             android:text="@string/add_save" />
+
     </GridLayout>
 
 </ScrollView>

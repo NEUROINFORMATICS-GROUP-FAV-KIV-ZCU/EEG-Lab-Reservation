@@ -22,9 +22,6 @@ public class WelcomeActivity extends ProgressActivity {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Welcome activity displayed");
 		setContentView(R.layout.welcome);
-
-		TextView urlField = (TextView) findViewById(R.id.settings_url_field);
-		urlField.setText("https://");
 	}
 
 	public void loginClick(View v) {

@@ -21,7 +21,8 @@
         <TextView
             android:id="@+id/dateField"
             android:layout_column="2"
-            android:layout_gravity="center_vertical"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center"
             android:layout_row="0"
             android:paddingLeft="15sp"
             android:text="@string/dummy_date"

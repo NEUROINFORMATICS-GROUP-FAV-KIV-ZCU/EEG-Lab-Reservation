@@ -11,6 +11,8 @@
          Laboratory in the Department of Computer Science and Engineering at the University of West Bohemia.
         \n
         This application was created as a semestral project for subject of Mobile communication devices.</string>
+    <string name="login_mail_suffix">\ @students.zcu.cz</string>
+    <string name="login_protocol">https://</string>
     <string name="login_button">Log In</string>
     <string name="settings_url">Service URL</string>
     <string name="settings_username">Username</string>

@@ -46,13 +46,15 @@
             android:gravity="left"
             android:text="@string/settings_username" />
         <requestFocus />
-
+
         <EditText
             android:id="@+id/settings_username_field"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textEmailAddress" >
+            android:inputType="textEmailAddress"
+            android:text="@string/login_mail_suffix" >
+
             <requestFocus />
         </EditText>
     </TableRow>
@@ -84,13 +86,15 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="@string/settings_url" />
-
+
         <EditText
             android:id="@+id/settings_url_field"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textUri" />
+            android:inputType="textUri"
+            android:text="@string/login_protocol" />
+
     </TableRow>
 
 </TableLayout>

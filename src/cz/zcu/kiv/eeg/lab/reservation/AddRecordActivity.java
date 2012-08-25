@@ -9,8 +9,7 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.res.Resources.NotFoundException;
 import android.os.*;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
@@ -70,12 +69,22 @@ public class AddRecordActivity extends ProgressActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.save_discard_menu, menu);
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
 		case android.R.id.home:
+		case R.id.menuDiscard:
 			finish();
 			break;
+		case R.id.menuSave:
+			addRecord();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -116,7 +125,7 @@ public class AddRecordActivity extends ProgressActivity {
 		toDialog.show();
 	}
 
-	public void addRecordClick(View v) {
+	public void addRecord() {
 
 		SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		try {

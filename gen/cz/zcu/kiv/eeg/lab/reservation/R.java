@@ -24,13 +24,14 @@ public final class R {
     }
     public static final class id {
         public static final int GridLayout1=0x7f060000;
-        public static final int RelativeLayout1=0x7f06000d;
+        public static final int LinearLayout1=0x7f06000c;
+        public static final int RelativeLayout1=0x7f06000e;
         public static final int about=0x7f06001f;
         public static final int addRecord=0x7f06001d;
-        public static final int addRecordButton=0x7f06000b;
+        public static final int agenda=0x7f06000d;
         public static final int app_name_label=0x7f06001a;
-        public static final int bottomtext=0x7f060011;
-        public static final int chooseDate=0x7f06000e;
+        public static final int bottomtext=0x7f060012;
+        public static final int chooseDateButton=0x7f06000f;
         public static final int dateField=0x7f060002;
         public static final int dateLabel=0x7f060001;
         public static final int fromField=0x7f060007;
@@ -38,42 +39,44 @@ public final class R {
         public static final int fromTimeButton=0x7f060005;
         public static final int groupLabel=0x7f060003;
         public static final int groupList=0x7f060004;
-        public static final int list=0x7f06000f;
         public static final int login_button=0x7f06001b;
         public static final int logo=0x7f060019;
+        public static final int menuDiscard=0x7f060021;
+        public static final int menuSave=0x7f060020;
         public static final int refresh=0x7f06001c;
+        public static final int reservation_list=0x7f060010;
         public static final int settings=0x7f06001e;
-        public static final int settings_password_field=0x7f060015;
-        public static final int settings_password_label=0x7f060014;
-        public static final int settings_url_field=0x7f060017;
-        public static final int settings_url_label=0x7f060016;
-        public static final int settings_username_field=0x7f060013;
-        public static final int settings_username_label=0x7f060012;
+        public static final int settings_password_field=0x7f060016;
+        public static final int settings_password_label=0x7f060015;
+        public static final int settings_url_field=0x7f060018;
+        public static final int settings_url_label=0x7f060017;
+        public static final int settings_username_field=0x7f060014;
+        public static final int settings_username_label=0x7f060013;
         public static final int toField=0x7f06000a;
         public static final int toLabel=0x7f060008;
         public static final int toTimeButton=0x7f060009;
-        public static final int toptext=0x7f060010;
-        public static final int txtHeader=0x7f06000c;
-        public static final int update_button=0x7f060018;
+        public static final int toptext=0x7f060011;
+        public static final int txtHeader=0x7f06000b;
     }
     public static final class layout {
         public static final int add_record=0x7f030000;
         public static final int group_row=0x7f030001;
         public static final int header_row=0x7f030002;
         public static final int main=0x7f030003;
-        public static final int row=0x7f030004;
-        public static final int settings=0x7f030005;
-        public static final int welcome=0x7f030006;
+        public static final int reservation_list=0x7f030004;
+        public static final int row=0x7f030005;
+        public static final int settings=0x7f030006;
+        public static final int welcome=0x7f030007;
     }
     public static final class menu {
-        public static final int main_menu=0x7f050000;
+        public static final int reservation_menu=0x7f050000;
+        public static final int save_discard_menu=0x7f050001;
     }
     public static final class string {
         public static final int add_change=0x7f040016;
         public static final int add_date_label=0x7f040012;
         public static final int add_from_label=0x7f040014;
         public static final int add_group_label=0x7f040013;
-        public static final int add_save=0x7f040017;
         public static final int add_to_label=0x7f040015;
         public static final int app_about=0x7f040005;
         public static final int app_about_description=0x7f040006;
@@ -82,28 +85,30 @@ public final class R {
         public static final int app_overview=0x7f040001;
         public static final int app_refresh=0x7f040002;
         public static final int app_settings=0x7f040003;
-        public static final int dummy_date=0x7f04001d;
-        public static final int dummy_from=0x7f04001e;
-        public static final int dummy_to=0x7f04001f;
-        public static final int error_connection=0x7f040020;
-        public static final int error_date_comparison=0x7f040021;
-        public static final int error_invalid_password=0x7f040023;
-        public static final int error_invalid_url=0x7f040024;
-        public static final int error_invalid_username=0x7f040025;
-        public static final int error_unknown_host=0x7f040022;
-        public static final int http_400=0x7f040026;
-        public static final int http_401=0x7f040027;
-        public static final int http_403=0x7f040028;
-        public static final int http_404=0x7f040029;
-        public static final int http_405=0x7f04002a;
-        public static final int http_408=0x7f04002b;
-        public static final int http_500=0x7f04002c;
-        public static final int http_503=0x7f04002d;
+        public static final int dummy_date=0x7f04001e;
+        public static final int dummy_from=0x7f04001f;
+        public static final int dummy_to=0x7f040020;
+        public static final int error_connection=0x7f040021;
+        public static final int error_date_comparison=0x7f040022;
+        public static final int error_invalid_password=0x7f040024;
+        public static final int error_invalid_url=0x7f040025;
+        public static final int error_invalid_username=0x7f040026;
+        public static final int error_unknown_host=0x7f040023;
+        public static final int http_400=0x7f040027;
+        public static final int http_401=0x7f040028;
+        public static final int http_403=0x7f040029;
+        public static final int http_404=0x7f04002a;
+        public static final int http_405=0x7f04002b;
+        public static final int http_408=0x7f04002c;
+        public static final int http_500=0x7f04002d;
+        public static final int http_503=0x7f04002e;
         public static final int login_button=0x7f040009;
         public static final int login_mail_suffix=0x7f040007;
         public static final int login_protocol=0x7f040008;
-        public static final int logo=0x7f04002e;
+        public static final int logo=0x7f04002f;
         public static final int main_date=0x7f04000f;
+        public static final int menu_discard=0x7f040018;
+        public static final int menu_save=0x7f040017;
         public static final int reservation_created=0x7f040011;
         public static final int reservation_times=0x7f040010;
         public static final int settings_password=0x7f04000c;
@@ -111,10 +116,10 @@ public final class R {
         public static final int settings_update=0x7f04000e;
         public static final int settings_url=0x7f04000a;
         public static final int settings_username=0x7f04000b;
-        public static final int working=0x7f040018;
-        public static final int working_ws_create=0x7f04001c;
-        public static final int working_ws_groups=0x7f04001b;
-        public static final int working_ws_login=0x7f04001a;
-        public static final int working_ws_msg=0x7f040019;
+        public static final int working=0x7f040019;
+        public static final int working_ws_create=0x7f04001d;
+        public static final int working_ws_groups=0x7f04001c;
+        public static final int working_ws_login=0x7f04001b;
+        public static final int working_ws_msg=0x7f04001a;
     }
 }

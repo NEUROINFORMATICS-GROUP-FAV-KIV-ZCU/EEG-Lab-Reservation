@@ -61,18 +61,4 @@
             android:inputType="textUri" />
     </TableRow>
 
-    <TableRow>
-
-        <Button
-            android:id="@+id/update_button"
-            android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_action_save"
-            android:onClick="updateClick"
-            android:text="@string/settings_update" />
-
-    </TableRow>
-
 </TableLayout>

@@ -1,12 +1,13 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.*;
 import android.content.DialogInterface;
 import android.os.Message;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 
 public abstract class ProgressActivity extends Activity {
+
+	protected ProgressDialog wsProgressDialog;
 
 	public abstract void changeProgress(ProgressState messageType, Message message);
 

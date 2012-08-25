@@ -82,7 +82,7 @@ public class TestCredentials extends ProgressService<Void, Void, Boolean> {
 			Toast.makeText(activity, R.string.settings_saved, Toast.LENGTH_SHORT).show();
 
 			if (startupTest)
-				activity.startActivity(new Intent(activity, CalendarActivity.class));
+				activity.startActivity(new Intent(activity, AgendaActivity.class));
 			else
 				activity.finish();
 		}

@@ -1,9 +1,7 @@
 package cz.zcu.kiv.eeg.lab.reservation;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.Bundle;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 
@@ -21,7 +19,7 @@ public class StartUpActivity extends Activity {
 			Intent welcomeIntent = new Intent(this, WelcomeActivity.class);
 			startActivity(welcomeIntent);
 		} else {
-			Intent calendarIntent = new Intent(this, CalendarActivity.class);
+			Intent calendarIntent = new Intent(this, AgendaActivity.class);
 			startActivity(calendarIntent);
 		}
 

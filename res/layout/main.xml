@@ -1,39 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:columnCount="3"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/dateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/chooseDate"
-        android:padding="15sp"
-        android:text="@string/dummy_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <ListView
-        android:id="@+id/list"
+    <fragment
+        android:id="@+id/agenda"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateLabel" >
+        class="cz.zcu.kiv.eeg.lab.reservation.ui.AgendaFragment"
+        tools:layout="@layout/reservation_list" />
 
-    </ListView>
-
-    <Button
-        android:id="@+id/chooseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/list"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/ic_action_date"
-        android:onClick="chooseDateClick"
-        android:text="@string/main_date" />
-
-</RelativeLayout>
+</LinearLayout>

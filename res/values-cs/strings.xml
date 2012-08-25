@@ -27,7 +27,8 @@
     <string name="add_from_label">Od času</string>
     <string name="add_to_label">Do času</string>
     <string name="add_change">Změnit čas</string>
-    <string name="add_save">Uložit</string>
+    <string name="menu_save">Uložit</string>
+    <string name="menu_discard">Zrušit</string>
     <string name="working">Pracuji</string>
     <string name="working_ws_login">Ověřuji přihlašovací informace…</string>
     <string name="working_ws_msg">Probíhá komunikace s webovou službou…</string>

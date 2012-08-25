@@ -27,7 +27,8 @@
     <string name="add_from_label">From time</string>
     <string name="add_to_label">To time</string>
     <string name="add_change">Change time</string>
-    <string name="add_save">Save</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_discard">Discard</string>
     <string name="working">Working</string>
     <string name="working_ws_msg">Ongoing communication with web service…</string>
     <string name="working_ws_login">Veryfing login information…</string>

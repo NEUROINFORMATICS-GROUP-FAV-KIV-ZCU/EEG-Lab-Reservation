@@ -16,6 +16,8 @@ import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.*;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
+import cz.zcu.kiv.eeg.lab.reservation.ui.AgendaActivity;
+import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
 public class TestCredentials extends ProgressService<Void, Void, Boolean> {
 

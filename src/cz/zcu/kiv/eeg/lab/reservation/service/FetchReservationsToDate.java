@@ -12,13 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
+import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
 public class FetchReservationsToDate extends ProgressService<Integer, Void, List<ReservationData>> {
 

@@ -1,4 +1,4 @@
-package cz.zcu.kiv.eeg.lab.reservation;
+package cz.zcu.kiv.eeg.lab.reservation.ui;
 
 import android.app.*;
 import android.content.DialogInterface;

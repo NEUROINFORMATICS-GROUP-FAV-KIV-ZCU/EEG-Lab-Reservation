@@ -6,7 +6,6 @@ import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.ListView;
-import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;

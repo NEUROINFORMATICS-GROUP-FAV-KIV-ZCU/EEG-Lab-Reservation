@@ -16,12 +16,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
-import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
+import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
 public class CreateReservation extends ProgressService<ReservationData, Void, Boolean> {
 

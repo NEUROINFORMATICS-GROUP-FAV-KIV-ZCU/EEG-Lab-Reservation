@@ -1,4 +1,4 @@
-package cz.zcu.kiv.eeg.lab.reservation;
+package cz.zcu.kiv.eeg.lab.reservation.ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +11,7 @@ import android.os.*;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;

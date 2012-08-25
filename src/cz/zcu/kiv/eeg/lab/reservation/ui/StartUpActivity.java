@@ -1,4 +1,4 @@
-package cz.zcu.kiv.eeg.lab.reservation;
+package cz.zcu.kiv.eeg.lab.reservation.ui;
 
 import android.app.Activity;
 import android.content.*;

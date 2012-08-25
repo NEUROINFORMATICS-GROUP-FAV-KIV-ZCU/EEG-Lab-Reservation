@@ -9,10 +9,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Message;
-import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
+import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
 public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> {
 

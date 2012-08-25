@@ -12,13 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import cz.zcu.kiv.eeg.lab.reservation.ProgressActivity;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupData;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
+import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
 public class FetchResearchGroups extends ProgressService<Void, Void, List<ResearchGroupData>> {
 

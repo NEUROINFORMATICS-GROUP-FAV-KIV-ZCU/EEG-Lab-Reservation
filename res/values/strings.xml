@@ -13,7 +13,6 @@
         This application was created as a semestral project for subject of Mobile communication devices.</string>
     <string name="login_mail_suffix">\ @students.zcu.cz</string>
     <string name="login_protocol">https://</string>
-    <string name="login_button">Log In</string>
     <string name="settings_url">Service URL</string>
     <string name="settings_username">Username</string>
     <string name="settings_password">Password</string>
@@ -29,6 +28,7 @@
     <string name="add_change">Change time</string>
     <string name="menu_save">Save</string>
     <string name="menu_discard">Discard</string>
+    <string name="menu_login">Log In</string>
     <string name="working">Working</string>
     <string name="working_ws_msg">Ongoing communication with web service…</string>
     <string name="working_ws_login">Veryfing login information…</string>

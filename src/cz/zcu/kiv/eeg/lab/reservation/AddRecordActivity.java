@@ -38,19 +38,18 @@ public class AddRecordActivity extends ProgressActivity {
 		year = b.getInt("year");
 		month = b.getInt("month") + 1;
 		day = b.getInt("day");
+		setTitle(String.format("%d.%d.%d - %s", day, month, year, getString(R.string.app_add_record)));
 
 		initFields();
 		updateData();
 	}
 
 	private void initFields() {
-		TextView dateField = (TextView) findViewById(R.id.dateField);
 		TextView fromField = (TextView) findViewById(R.id.fromField);
 		TextView toField = (TextView) findViewById(R.id.toField);
 
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
-		dateField.setText(String.format("%d.%d.%d", day, month, year));
 
 		fromHour = toHour = c.get(Calendar.HOUR_OF_DAY);
 		fromMinute = toMinute = c.get(Calendar.MINUTE);

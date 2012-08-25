@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.*;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
 import android.widget.TextView;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
@@ -24,7 +24,24 @@ public class WelcomeActivity extends ProgressActivity {
 		setContentView(R.layout.welcome);
 	}
 
-	public void loginClick(View v) {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.login_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menuLogin:
+			loginClick();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void loginClick() {
 
 		TextView usernameField = (TextView) findViewById(R.id.settings_username_field);
 		TextView passwordField = (TextView) findViewById(R.id.settings_password_field);

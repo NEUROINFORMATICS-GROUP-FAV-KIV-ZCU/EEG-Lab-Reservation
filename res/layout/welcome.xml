@@ -86,18 +86,4 @@
 
     </TableRow>
 
-    <TableRow>
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_action_login"
-            android:onClick="loginClick"
-            android:text="@string/login_button" />
-
-    </TableRow>
-
 </TableLayout>

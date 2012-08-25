@@ -17,11 +17,9 @@
     <string name="settings_username">Uživatelské jméno</string>
     <string name="settings_password">Heslo</string>
     <string name="settings_saved">Nastavení uloženo</string>
-    <string name="settings_update">Aktualizovat</string>
     <string name="main_date">Vyberte datum</string>
     <string name="reservation_times">Rezervované časy</string>
     <string name="reservation_created">Rezervace vytvořena</string>
-    <string name="add_date_label">Datum</string>
     <string name="add_group_label">Výzkumná skupina</string>
     <string name="add_from_label">Od času</string>
     <string name="add_to_label">Do času</string>

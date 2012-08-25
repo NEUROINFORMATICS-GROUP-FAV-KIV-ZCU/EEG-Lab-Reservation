@@ -17,11 +17,9 @@
     <string name="settings_username">Username</string>
     <string name="settings_password">Password</string>
     <string name="settings_saved">Settings saved.</string>
-    <string name="settings_update">Update</string>
     <string name="main_date">Choose date</string>
     <string name="reservation_times">Reserved times</string>
     <string name="reservation_created">Reservation created.</string>
-    <string name="add_date_label">Date</string>
     <string name="add_group_label">Research group</string>
     <string name="add_from_label">From time</string>
     <string name="add_to_label">To time</string>

@@ -22,11 +22,11 @@ public class ReservationData {
 	private String fromTime;
 	@Element
 	private String toTime;
-	@Element
+	@Element(required = false)
 	private String creatorName;
-	@Element
+	@Element(required = false)
 	private String creatorMailUsername;
-	@Element
+	@Element(required = false)
 	private String creatorMailDomain;
 
 	public ReservationData() {

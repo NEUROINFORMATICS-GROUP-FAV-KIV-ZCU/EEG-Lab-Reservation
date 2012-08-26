@@ -22,6 +22,12 @@ public class ReservationData {
 	private String fromTime;
 	@Element
 	private String toTime;
+	@Element
+	private String creatorName;
+	@Element
+	private String creatorMailUsername;
+	@Element
+	private String creatorMailDomain;
 
 	public ReservationData() {
 	}
@@ -72,4 +78,29 @@ public class ReservationData {
 	public void setToTime(String toTime) {
 		this.toTime = toTime;
 	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public String getCreatorMailUsername() {
+		return creatorMailUsername;
+	}
+
+	public void setCreatorMailUsername(String creatorMailUsername) {
+		this.creatorMailUsername = creatorMailUsername;
+	}
+
+	public String getCreatorMailDomain() {
+		return creatorMailDomain;
+	}
+
+	public void setCreatorMailDomain(String creatorMailDomain) {
+		this.creatorMailDomain = creatorMailDomain;
+	}
+
 }

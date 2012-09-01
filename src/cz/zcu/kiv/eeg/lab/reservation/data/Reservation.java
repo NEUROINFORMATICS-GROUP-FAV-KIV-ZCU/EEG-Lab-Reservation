@@ -15,11 +15,15 @@ public class Reservation implements Serializable {
 	private CharSequence researchGroup;
 	private Date fromTime;
 	private Date toTime;
+	private String creatorName;
+	private String email;
 
-	public Reservation(CharSequence researchGroup, Date fromTime, Date toTime) {
+	public Reservation(CharSequence researchGroup, Date fromTime, Date toTime, String creatorName, String email) {
 		this.researchGroup = researchGroup;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
+		this.creatorName = creatorName;
+		this.email = email;
 	}
 
 	public CharSequence getResearchGroup() {
@@ -45,4 +49,21 @@ public class Reservation implements Serializable {
 	public void setToTime(Date toTime) {
 		this.toTime = toTime;
 	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

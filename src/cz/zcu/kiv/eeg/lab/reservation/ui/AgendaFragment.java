@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
-import cz.zcu.kiv.eeg.lab.reservation.*;
+import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
@@ -19,14 +19,14 @@ public class AgendaFragment extends Fragment implements OnClickListener {
 
 	private final static String TAG = AgendaFragment.class.getSimpleName();
 
-	private int year, month, day;
+	private static int year, month, day;
 	private TextView dateLabel;
 
 	private final OnDateSetListener dateSetListener = new OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			AgendaFragment.this.year = year;
+			AgendaFragment.year = year;
 			month = monthOfYear;
 			day = dayOfMonth;
 			updateDate();
@@ -59,6 +59,7 @@ public class AgendaFragment extends Fragment implements OnClickListener {
 		initButtons();
 		initData(savedState);
 		updateDate();
+		updateData();
 	}
 
 	@Override
@@ -67,14 +68,6 @@ public class AgendaFragment extends Fragment implements OnClickListener {
 		outState.putInt("year", year);
 		outState.putInt("month", month);
 		outState.putInt("day", day);
-	}
-
-	/**
-	 * Helper function to show the details of a selected item, either by
-	 * displaying a fragment in-place in the current UI, or starting a whole new
-	 * activity in which it is displayed.
-	 */
-	void showDetails(int index) {
 	}
 
 	private void initData(Bundle savedState) {

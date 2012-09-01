@@ -3,6 +3,7 @@
 
     <string name="app_name">EEG Lab Rezervace</string>
     <string name="app_overview">Přehled</string>
+    <string name="app_details">Podrobnosti</string>
     <string name="app_refresh">Obnovit</string>
     <string name="app_settings">Nastavení</string>
     <string name="app_add_record">Nová rezervace</string>
@@ -50,4 +51,10 @@
 	<string name="http_500">Nastala chyba serveru. Zkuste znovu později.</string>
 	<string name="http_503">Služba je dočasně nedostupná. Zkuste znovu později.</string>
 	<string name="logo">Logo</string>
+	<string name="detail_group">Výzkumná skupina</string>
+	<string name="detail_from">Od</string>
+	<string name="detail_to">Do</string>
+	<string name="detail_separator">-</string>
+	<string name="detail_creator">Vytvořil</string>
+	<string name="detail_empty">Nevybrána žádná rezervace</string>
 </resources>

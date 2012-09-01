@@ -3,6 +3,7 @@
 
     <string name="app_name">EEG Lab reservation</string>
     <string name="app_overview">Agenda</string>
+    <string name="app_details">Details</string>
     <string name="app_refresh">Refresh</string>
     <string name="app_settings">Settings</string>
     <string name="app_add_record">New reservation</string>
@@ -50,4 +51,11 @@
 	<string name="http_500">Internal server error. Try again later.</string>
 	<string name="http_503">Service is currently unavailable. Try again later.</string>
 	<string name="logo">Logo</string>
+	<string name="detail_group">Research group</string>
+	<string name="dummy_group">Group name</string>
+	<string name="detail_from">From time</string>
+	<string name="detail_to">To time</string>
+	<string name="detail_separator">-</string>
+	<string name="detail_creator">Creator</string>
+	<string name="detail_empty">No reservation selected</string>
 </resources>

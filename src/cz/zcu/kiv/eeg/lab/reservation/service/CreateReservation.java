@@ -82,7 +82,8 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 			try {
 				Intent resultIntent = new Intent();
 				Reservation record = new Reservation(data.getResearchGroup(), sf.parse(data.getFromTime()),
-						sf.parse(data.getToTime()));
+						sf.parse(data.getToTime()), data.getCreatorName(), data.getCreatorMailUsername() + "@"
+								+ data.getCreatorMailDomain());
 				resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
 				Toast.makeText(activity, activity.getString(R.string.reservation_created), Toast.LENGTH_SHORT).show();
 				activity.setResult(Activity.RESULT_OK, resultIntent);

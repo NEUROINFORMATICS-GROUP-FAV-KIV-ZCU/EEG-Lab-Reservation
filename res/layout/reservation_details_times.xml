@@ -4,33 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:weightSum="6" >
+    android:orientation="vertical"
+    android:weightSum="3" >
 
     <TextView
         android:id="@+id/fromValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:text="@string/detail_from"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="12"
+        android:padding="@dimen/detail_value_padding"
+        android:text="@string/detail_from" />
 
     <TextView
         android:id="@+id/timeSeparator"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="@string/detail_separator" />
 
     <TextView
         android:id="@+id/toValue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:text="@string/detail_to"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/detail_value_padding"
+        android:text="@string/detail_to" />
 
 </LinearLayout>

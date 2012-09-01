@@ -54,7 +54,9 @@
 	<string name="detail_group">Výzkumná skupina</string>
 	<string name="detail_from">Od</string>
 	<string name="detail_to">Do</string>
-	<string name="detail_separator">-</string>
+	<string name="detail_separator"> - </string>
 	<string name="detail_creator">Vytvořil</string>
 	<string name="detail_empty">Nevybrána žádná rezervace</string>
+	<string name="detail_time">Časy</string>
+	<string name="detail_contact">Kontakt</string>
 </resources>

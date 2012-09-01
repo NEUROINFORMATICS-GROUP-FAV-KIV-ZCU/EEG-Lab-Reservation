@@ -55,7 +55,9 @@
 	<string name="dummy_group">Group name</string>
 	<string name="detail_from">From time</string>
 	<string name="detail_to">To time</string>
-	<string name="detail_separator">-</string>
+	<string name="detail_separator"> - </string>
 	<string name="detail_creator">Creator</string>
 	<string name="detail_empty">No reservation selected</string>
+	<string name="detail_time">Time span</string>
+	<string name="detail_contact">Contact</string>
 </resources>

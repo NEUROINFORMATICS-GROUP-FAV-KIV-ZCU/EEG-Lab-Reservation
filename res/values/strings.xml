@@ -36,6 +36,7 @@
     <string name="dummy_date">DATE</string>
     <string name="dummy_from">FROM</string>
     <string name="dummy_to">TO</string>
+    <string name="error_offline">Connection is unavailable. Request could not be completed.</string>
     <string name="error_connection">Connection to server issues occured. Try again later.</string>
 	<string name="error_date_comparison">Reservation action cannot end before it even started!</string>
 	<string name="error_unknown_host">Invalid host name/address!</string>

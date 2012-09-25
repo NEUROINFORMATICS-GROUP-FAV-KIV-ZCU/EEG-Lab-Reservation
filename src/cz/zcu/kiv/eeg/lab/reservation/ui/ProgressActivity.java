@@ -7,7 +7,7 @@ import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 
 public abstract class ProgressActivity extends Activity {
 
-	protected ProgressDialog wsProgressDialog;
+	protected volatile ProgressDialog wsProgressDialog;
 
 	public abstract void changeProgress(ProgressState messageType, Message message);
 
@@ -21,4 +21,13 @@ public abstract class ProgressActivity extends Activity {
 		});
 		builder.create().show();
 	}
+
+	@Override
+	protected void onPause() {
+		if (wsProgressDialog != null && wsProgressDialog.isShowing()) {
+			wsProgressDialog.dismiss();
+		}
+		super.onPause();
+	}
+
 }

@@ -18,6 +18,7 @@ import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.CreateReservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
+import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 
 public class AddRecordActivity extends ProgressActivity {
 
@@ -25,7 +26,6 @@ public class AddRecordActivity extends ProgressActivity {
 
 	private int year, month, day, fromHour, fromMinute, toHour, toMinute;
 	private ResearchGroupAdapter researchGroupAdapter;
-	private ProgressDialog wsProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +61,13 @@ public class AddRecordActivity extends ProgressActivity {
 		researchGroupAdapter = new ResearchGroupAdapter(this, R.layout.group_row, new ArrayList<ResearchGroup>());
 		Spinner groupList = (Spinner) findViewById(R.id.groupList);
 		groupList.setAdapter(researchGroupAdapter);
-
 	}
 
 	private void updateData() {
-		new FetchResearchGroups(this, researchGroupAdapter).execute();
+		if (ConnectionUtils.isOnline(this)) {
+			new FetchResearchGroups(this, researchGroupAdapter).execute();
+		} else
+			showAlert(getString(R.string.error_offline));
 	}
 
 	@Override
@@ -127,31 +129,37 @@ public class AddRecordActivity extends ProgressActivity {
 
 	public void addRecord() {
 
-		SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		try {
-			Date fromDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, fromHour, fromMinute));
-			Date toDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, toHour, toMinute));
+		if (ConnectionUtils.isOnline(this)) {
 
-			if (fromDate.getTime() >= toDate.getTime()) {
-				Toast.makeText(this, R.string.error_date_comparison, Toast.LENGTH_SHORT).show();
-				return;
+			SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+			try {
+				Date fromDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, fromHour,
+						fromMinute));
+				Date toDate = sf.parse(String.format("%02d.%02d.%04d %02d:%02d", day, month, year, toHour, toMinute));
+
+				if (fromDate.getTime() >= toDate.getTime()) {
+					Toast.makeText(this, R.string.error_date_comparison, Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
+				ReservationData record = new ReservationData();
+
+				record.setResearchGroupId(group.getResearchGroupId());
+				record.setResearchGroup(group.getResearchGroupName());
+				record.setFromTime(sf.format(fromDate));
+				record.setToTime(sf.format(toDate));
+
+				new CreateReservation(this).execute(record);
+			} catch (NotFoundException e) {
+				Log.d(TAG, e.getLocalizedMessage(), e);
+				Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+			} catch (ParseException e) {
+				Log.d(TAG, e.getLocalizedMessage(), e);
+				Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 			}
-
-			ResearchGroup group = (ResearchGroup) ((Spinner) findViewById(R.id.groupList)).getSelectedItem();
-			ReservationData record = new ReservationData();
-
-			record.setResearchGroupId(group.getResearchGroupId());
-			record.setResearchGroup(group.getResearchGroupName());
-			record.setFromTime(sf.format(fromDate));
-			record.setToTime(sf.format(toDate));
-
-			new CreateReservation(this).execute(record);
-		} catch (NotFoundException e) {
-			Log.d(TAG, e.getLocalizedMessage(), e);
-			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-		} catch (ParseException e) {
-			Log.d(TAG, e.getLocalizedMessage(), e);
-			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+		} else {
+			showAlert(getString(R.string.error_offline));
 		}
 	}
 
@@ -167,7 +175,8 @@ public class AddRecordActivity extends ProgressActivity {
 					break;
 				case INACTIVE:
 				case DONE:
-					wsProgressDialog.dismiss();
+					if (wsProgressDialog != null && wsProgressDialog.isShowing())
+						wsProgressDialog.dismiss();
 					break;
 				case ERROR:
 					showAlert(message.obj.toString());

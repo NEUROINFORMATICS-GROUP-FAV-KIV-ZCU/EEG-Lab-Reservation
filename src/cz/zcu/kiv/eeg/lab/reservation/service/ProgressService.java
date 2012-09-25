@@ -61,6 +61,10 @@ public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> {
 			}
 		}
 
+		if (exception.getMessage().toLowerCase().contains("timed out")) {
+			return "Connection timed out. Check if you're connected.";
+		}
+
 		if (exception.getCause() instanceof UnknownHostException)
 			return activity.getString(R.string.error_unknown_host);
 

@@ -11,12 +11,12 @@ import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
+import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ValidationUtils;
 
 public class WelcomeActivity extends ProgressActivity {
 
 	private final static String TAG = WelcomeActivity.class.getSimpleName();
-	private ProgressDialog wsProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,11 @@ public class WelcomeActivity extends ProgressActivity {
 	}
 
 	private void testCredentials(String username, String password, String url) {
+
+		if (!ConnectionUtils.isOnline(this)) {
+			showAlert(getString(R.string.error_offline));
+			return;
+		}
 
 		SharedPreferences credentials = getSharedPreferences(Constants.PREFS_CREDENTIALS, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = credentials.edit();
@@ -94,7 +99,8 @@ public class WelcomeActivity extends ProgressActivity {
 					break;
 				case INACTIVE:
 				case DONE:
-					wsProgressDialog.dismiss();
+					if (wsProgressDialog != null && wsProgressDialog.isShowing())
+						wsProgressDialog.dismiss();
 					break;
 				case ERROR:
 					showAlert(message.obj.toString());

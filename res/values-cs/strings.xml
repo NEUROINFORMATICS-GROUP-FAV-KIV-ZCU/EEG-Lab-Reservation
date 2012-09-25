@@ -36,6 +36,7 @@
     <string name="dummy_date">DATUM</string>
     <string name="dummy_from">OD</string>
     <string name="dummy_to">DO</string>
+    <string name="error_offline">Připojení není dostupné. Požadavek nemohl být vykonán.</string>
     <string name="error_connection">Vyskytly se potíže s připojením k serveru. Zkuste později.</string>
     <string name="error_date_comparison">Rezervace nemůže skončit, než vůbec začala!</string>
     <string name="error_unknown_host">Neplatná adresa!</string>

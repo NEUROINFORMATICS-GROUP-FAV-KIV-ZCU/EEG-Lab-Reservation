@@ -20,7 +20,7 @@ import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 
-public class AddRecordActivity extends ProgressActivity {
+public class AddRecordActivity extends SaveDiscardActivity{
 
 	private static final String TAG = AddRecordActivity.class.getSimpleName();
 
@@ -31,10 +31,7 @@ public class AddRecordActivity extends ProgressActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "Add new record activity loaded");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_record);
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		
 		Bundle b = getIntent().getExtras();
 		year = b.getInt("year");
 		month = b.getInt("month") + 1;
@@ -68,27 +65,6 @@ public class AddRecordActivity extends ProgressActivity {
 			new FetchResearchGroups(this, researchGroupAdapter).execute();
 		} else
 			showAlert(getString(R.string.error_offline));
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.save_discard_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case android.R.id.home:
-		case R.id.menuDiscard:
-			finish();
-			break;
-		case R.id.menuSave:
-			addRecord();
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	private final OnTimeSetListener fromListener = new OnTimeSetListener() {
@@ -127,7 +103,7 @@ public class AddRecordActivity extends ProgressActivity {
 		toDialog.show();
 	}
 
-	public void addRecord() {
+	public void save() {
 
 		if (ConnectionUtils.isOnline(this)) {
 
@@ -161,6 +137,12 @@ public class AddRecordActivity extends ProgressActivity {
 		} else {
 			showAlert(getString(R.string.error_offline));
 		}
+	}
+	
+
+	@Override
+	protected void discard() {
+		finish();
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 import cz.zcu.kiv.eeg.lab.reservation.*;
-import cz.zcu.kiv.eeg.lab.reservation.service.data.ResearchGroupDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 import cz.zcu.kiv.eeg.lab.reservation.ui.AgendaActivity;
 import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
@@ -35,7 +34,7 @@ public class TestCredentials extends ProgressService<Void, Void, Boolean> {
 		SharedPreferences credentials = getCredentials();
 		String username = credentials.getString("tmp_username", null);
 		String password = credentials.getString("tmp_password", null);
-		String url = credentials.getString("tmp_url", null) + "groups";
+		String url = credentials.getString("tmp_url", null) + "user/login";
 
 		changeProgress(RUNNING, R.string.working_ws_login);
 		HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
@@ -47,14 +46,13 @@ public class TestCredentials extends ProgressService<Void, Void, Boolean> {
 		// Create a new RestTemplate instance
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(HttpsClient.getNewHttpClient()));
-		restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
+		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
 		try {
 			// Make the network request
 			Log.d(TAG, url);
-			ResponseEntity<ResearchGroupDataList> response = restTemplate.exchange(url, HttpMethod.GET, entity,
-					ResearchGroupDataList.class);
-			response.getBody();
+			//TODO storing client information, if desired
+			restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
 			return true;
 

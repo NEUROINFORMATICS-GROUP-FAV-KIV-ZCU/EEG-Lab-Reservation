@@ -36,7 +36,7 @@ public class FetchReservationsToDate extends ProgressService<Integer, Void, List
 		SharedPreferences credentials = getCredentials();
 		String username = credentials.getString("username", null);
 		String password = credentials.getString("password", null);
-		String url = credentials.getString("url", null);
+		String url = credentials.getString("url", null)  + "reservation/";
 
 		if (params.length == 3) {
 			url = url + params[0] + "-" + params[1] + "-" + params[2];

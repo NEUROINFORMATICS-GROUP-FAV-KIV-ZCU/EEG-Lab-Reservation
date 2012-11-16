@@ -48,8 +48,7 @@ public class WelcomeActivity extends ProgressActivity {
 		TextView passwordField = (TextView) findViewById(R.id.settings_password_field);
 		TextView urlField = (TextView) findViewById(R.id.settings_url_field);
 
-		testCredentials(usernameField.getText().toString(), passwordField.getText().toString(), urlField.getText()
-				.toString());
+		testCredentials(usernameField.getText().toString(), passwordField.getText().toString(), urlField.getText().toString());
 	}
 
 	private void testCredentials(String username, String password, String url) {
@@ -94,8 +93,7 @@ public class WelcomeActivity extends ProgressActivity {
 			public void run() {
 				switch (messageType) {
 				case RUNNING:
-					wsProgressDialog = ProgressDialog.show(WelcomeActivity.this, getString(R.string.working),
-							(String) message.obj, true, true);
+					wsProgressDialog = ProgressDialog.show(WelcomeActivity.this, getString(R.string.working), (String) message.obj, true, true);
 					break;
 				case INACTIVE:
 				case DONE:
@@ -103,7 +101,8 @@ public class WelcomeActivity extends ProgressActivity {
 						wsProgressDialog.dismiss();
 					break;
 				case ERROR:
-					showAlert(message.obj.toString());
+					if (wsProgressDialog != null && wsProgressDialog.isShowing())
+						showAlert(message.obj.toString());
 				default:
 					break;
 				}

@@ -29,8 +29,9 @@ public class ReservationListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		setListAdapter(null);
+		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		getListView().setSelector(R.drawable.list_selector);
 		if (header != null)
 			getListView().addHeaderView(header);
 
@@ -43,8 +44,10 @@ public class ReservationListFragment extends ListFragment {
 
 		if (isDualView) {
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			if (cursorPosition >= HEADER_ROW)
+			if (cursorPosition >= HEADER_ROW){
 				showDetails(cursorPosition);
+				this.setSelection(cursorPosition);
+			}
 		}
 
 		setListAdapter(getAdapter());
@@ -59,8 +62,10 @@ public class ReservationListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int pos, long id) {
-		if (pos >= HEADER_ROW)
+		if (pos >= HEADER_ROW){
 			showDetails(pos);
+			this.setSelection(pos);
+		}
 	}
 
 	@Override

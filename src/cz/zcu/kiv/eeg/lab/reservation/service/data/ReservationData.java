@@ -28,15 +28,18 @@ public class ReservationData {
 	private String creatorMailUsername;
 	@Element(required = false)
 	private String creatorMailDomain;
+	@Element(required = false)
+	private boolean canRemove = false;
 
 	public ReservationData() {
 	}
 
-	public ReservationData(int groupId, String groupName, String fromTime, String toTime) {
+	public ReservationData(int groupId, String groupName, String fromTime, String toTime, boolean canRemove) {
 		this.researchGroupId = groupId;
 		this.researchGroup = groupName;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
+		this.canRemove = canRemove;
 	}
 
 	public String getResearchGroup() {
@@ -103,4 +106,13 @@ public class ReservationData {
 		this.creatorMailDomain = creatorMailDomain;
 	}
 
+	public boolean isCanRemove() {
+		return canRemove;
+	}
+
+	public void setCanRemove(boolean canRemove) {
+		this.canRemove = canRemove;
+	}
+
+	
 }

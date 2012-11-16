@@ -69,7 +69,6 @@ public class DetailsFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		// inflater.inflate(R.menu.reservation_menu, menu);
 	}
 
 	public int getShownIndex() {

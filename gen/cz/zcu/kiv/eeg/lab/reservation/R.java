@@ -26,6 +26,7 @@ public final class R {
         public static final int ic_action_settings=0x7f020009;
         public static final int ic_action_time=0x7f02000a;
         public static final int ic_launcher=0x7f02000b;
+        public static final int list_selector=0x7f02000c;
     }
     public static final class id {
         public static final int GridLayout1=0x7f070002;

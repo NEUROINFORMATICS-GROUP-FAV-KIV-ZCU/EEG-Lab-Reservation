@@ -44,7 +44,7 @@ public class ReservationListFragment extends ListFragment {
 
 		if (isDualView) {
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			if (cursorPosition >= HEADER_ROW){
+			if (cursorPosition >= HEADER_ROW) {
 				showDetails(cursorPosition);
 				this.setSelection(cursorPosition);
 			}
@@ -62,9 +62,17 @@ public class ReservationListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int pos, long id) {
-		if (pos >= HEADER_ROW){
+		if (pos >= HEADER_ROW && pos <= dataAdapter.getCount()) {
 			showDetails(pos);
 			this.setSelection(pos);
+		} else {
+			DetailsFragment details = (DetailsFragment) getFragmentManager().findFragmentById(R.id.details);
+			if (details != null && details.isVisible()) {
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+				ft.remove(details);
+				ft.commit();
+			}
 		}
 	}
 
@@ -75,8 +83,7 @@ public class ReservationListFragment extends ListFragment {
 	}
 
 	/**
-	 * Helper function to show the details of a selected item, either by
-	 * displaying a fragment in-place in the current UI, or starting a whole new
+	 * Helper function to show the details of a selected item, either by displaying a fragment in-place in the current UI, or starting a whole new
 	 * activity in which it is displayed.
 	 */
 	void showDetails(int index) {
@@ -87,20 +94,24 @@ public class ReservationListFragment extends ListFragment {
 			if (isDualView) {
 				getListView().setItemChecked(index, true);
 
-				DetailsFragment details = (DetailsFragment) getFragmentManager().findFragmentById(R.id.details);
-				if (details == null || details.getShownIndex() != index) {
-					details = new DetailsFragment();
+				DetailsFragment oldDetails = (DetailsFragment) getFragmentManager().findFragmentById(R.id.details);
+				DetailsFragment details = new DetailsFragment();
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-					Bundle args = new Bundle();
-					args.putInt("index", index);
-					args.putSerializable("data", dataAdapter.getItem(index - HEADER_ROW));
-					details.setArguments(args);
-
-					FragmentTransaction ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.details, details, DetailsFragment.TAG);
+				if (oldDetails == null) {
+					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+				} else {
+					ft.detach(oldDetails);
+					ft.remove(oldDetails);
 					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					ft.commit();
 				}
+				Bundle args = new Bundle();
+				args.putInt("index", index);
+				args.putSerializable("data", dataAdapter.getItem(index - HEADER_ROW));
+				details.setArguments(args);
+
+				ft.replace(R.id.details, details, DetailsFragment.TAG);
+				ft.commit();
 
 			} else {
 				Intent intent = new Intent();

@@ -59,7 +59,8 @@ public class AgendaFragment extends Fragment implements OnClickListener {
 		initButtons();
 		initData(savedState);
 		updateDate();
-		updateData();
+		if(!((ProgressActivity) getActivity()).progressOn)
+			updateData();
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class AgendaFragment extends Fragment implements OnClickListener {
 		dateLabel.setText(String.format("%d.%d.%d", day, month + 1, year));
 	}
 
-	private void updateData() {
+	public void updateData() {
 		ReservationListFragment listFragment = (ReservationListFragment) getFragmentManager().findFragmentById(
 				R.id.reservation_list);
 		listFragment.update(day, month + 1, year);

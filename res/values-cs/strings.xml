@@ -23,6 +23,7 @@
     <string name="reservation_created">Rezervace vytvořena</string>
     <string name="reservation_edited">Rezervace upravena</string>
     <string name="reservation_removed">Rezervace smazána</string>
+    <string name="reservation_removed_update">Rezervace smazána, prosím aktualizujte agendu.</string>
     <string name="add_group_label">Výzkumná skupina</string>
     <string name="add_from_label">Od času</string>
     <string name="add_to_label">Do času</string>

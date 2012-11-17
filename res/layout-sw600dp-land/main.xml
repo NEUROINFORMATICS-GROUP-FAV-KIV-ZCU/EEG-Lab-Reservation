@@ -7,7 +7,7 @@
     android:weightSum="3" >
 
     <fragment
-        android:id="@+id/agenda"
+        android:id="@+id/fragment_agenda"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"

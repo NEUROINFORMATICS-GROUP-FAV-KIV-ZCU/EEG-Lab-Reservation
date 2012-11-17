@@ -23,6 +23,7 @@
     <string name="reservation_created">Reservation created.</string>
     <string name="reservation_edited">Reservation edited.</string>
     <string name="reservation_removed">Reservation removed.</string>
+    <string name="reservation_removed_update">Reservation removed, please update view.</string>
     <string name="add_group_label">Research group</string>
     <string name="add_from_label">From time</string>
     <string name="add_to_label">To time</string>

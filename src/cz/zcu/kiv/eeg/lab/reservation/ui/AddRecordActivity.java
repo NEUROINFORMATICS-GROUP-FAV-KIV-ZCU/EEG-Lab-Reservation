@@ -126,6 +126,7 @@ public class AddRecordActivity extends SaveDiscardActivity{
 				record.setResearchGroup(group.getResearchGroupName());
 				record.setFromTime(sf.format(fromDate));
 				record.setToTime(sf.format(toDate));
+				record.setCanRemove(true);
 
 				new CreateReservation(this).execute(record);
 			} catch (NotFoundException e) {

@@ -65,8 +65,10 @@ public class ReservationAdapter extends ArrayAdapter<Reservation> implements OnC
 
 			if (!record.getCanRemove()) {
 				removeButton.setEnabled(false);
-				removeButton.setActivated(false);
+				removeButton.setVisibility(View.INVISIBLE);
 			} else {
+				removeButton.setEnabled(true);
+				removeButton.setVisibility(View.VISIBLE);
 				removeButton.setTag(record);
 				removeButton.setOnClickListener(this);
 			}
@@ -87,10 +89,9 @@ public class ReservationAdapter extends ArrayAdapter<Reservation> implements OnC
 					.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-//							ReservationData data = new ReservationData(reservation.getResearchGroupId(), reservation.getResearchGroup().toString(),
-//									reservation.getStringFromTime(), reservation.getStringToTime(), reservation.getCanRemove());
-//							new RemoveReservation((ProgressActivity) context).execute(data);
-							Toast.makeText(context, "Reservation remove feature is under development", Toast.LENGTH_SHORT).show();
+							ReservationData data = new ReservationData(reservation.getReservationId(), reservation.getResearchGroupId(), reservation.getResearchGroup().toString(),
+									reservation.getStringFromTime(), reservation.getStringToTime(), reservation.getCanRemove());
+							new RemoveReservation((ProgressActivity) context).execute(data);
 						}
 
 					}).setNegativeButton(context.getString(android.R.string.cancel), null).show();

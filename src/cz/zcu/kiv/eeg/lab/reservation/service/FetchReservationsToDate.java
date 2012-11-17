@@ -91,7 +91,7 @@ public class FetchReservationsToDate extends ProgressService<Integer, Void, List
 					SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy hh:mm");
 					Date fromTime = sf.parse(res.getFromTime());
 					Date toTime = sf.parse(res.getToTime());
-					Reservation reservation = new Reservation(res.getResearchGroup(), res.getResearchGroupId(), fromTime, toTime,
+					Reservation reservation = new Reservation(res.getReservationId(), res.getResearchGroup(), res.getResearchGroupId(), fromTime, toTime,
 							res.getCreatorName(), res.getCreatorMailUsername() + "@" + res.getCreatorMailDomain(), res.getCanRemove());
 					reservationAdapter.add(reservation);
 				} catch (Exception e) {

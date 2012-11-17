@@ -63,7 +63,8 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 			restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
 
 			Log.d(TAG, url);
-			restTemplate.postForEntity(url, entity, null);
+			 ResponseEntity<ReservationData> dataEntity = restTemplate.postForEntity(url, entity, ReservationData.class);
+			 data = dataEntity.getBody();
 			return true;
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage());
@@ -80,7 +81,7 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 		if (success) {
 			try {
 				Intent resultIntent = new Intent();
-				Reservation record = new Reservation(data.getResearchGroup(), data.getResearchGroupId(), data.getFromTime(),
+				Reservation record = new Reservation(data.getReservationId(), data.getResearchGroup(), data.getResearchGroupId(), data.getFromTime(),
 						data.getToTime(), data.getCreatorName(), data.getCreatorMailUsername() + "@"
 								+ data.getCreatorMailDomain(),data.getCanRemove());
 				resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);

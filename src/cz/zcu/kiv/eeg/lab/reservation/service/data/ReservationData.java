@@ -30,11 +30,12 @@ public class ReservationData {
 	private String creatorMailDomain;
 	@Element(required = false)
 	private boolean canRemove = false;
+	
+	
+	public ReservationData(){}
 
-	public ReservationData() {
-	}
-
-	public ReservationData(int groupId, String groupName, String fromTime, String toTime, boolean canRemove) {
+	public ReservationData(int reservationId, int groupId, String groupName, String fromTime, String toTime, boolean canRemove) {
+		this.reservationId = reservationId;
 		this.researchGroupId = groupId;
 		this.researchGroup = groupName;
 		this.fromTime = fromTime;

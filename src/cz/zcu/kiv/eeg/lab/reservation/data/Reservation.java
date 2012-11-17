@@ -15,6 +15,7 @@ import java.util.Date;
 public class Reservation implements Serializable {
 
 	private static final long serialVersionUID = 8850665675446609744L;
+	private int reservationId;
 	private CharSequence researchGroup;
 	private int researchGroupId;
 	private Date fromTime;
@@ -26,8 +27,9 @@ public class Reservation implements Serializable {
 	@SuppressLint("SimpleDateFormat")
 	private static SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-	public Reservation(CharSequence researchGroup, int researchGroupId, String fromTime, String toTime, String creatorName, String email,
+	public Reservation(int reservationId, CharSequence researchGroup, int researchGroupId, String fromTime, String toTime, String creatorName, String email,
 			boolean canRemove) throws ParseException {
+		this.reservationId = reservationId;
 		this.researchGroup = researchGroup;
 		this.researchGroupId = researchGroupId;
 		this.fromTime = sf.parse(fromTime);
@@ -37,8 +39,9 @@ public class Reservation implements Serializable {
 		this.canRemove = canRemove;
 	}
 
-	public Reservation(CharSequence researchGroup, int researchGroupId, Date fromTime, Date toTime, String creatorName, String email,
+	public Reservation(int reservationId, CharSequence researchGroup, int researchGroupId, Date fromTime, Date toTime, String creatorName, String email,
 			boolean canRemove) {
+		this.reservationId = reservationId;
 		this.researchGroup = researchGroup;
 		this.researchGroupId = researchGroupId;
 		this.fromTime = fromTime;
@@ -114,6 +117,14 @@ public class Reservation implements Serializable {
 
 	public boolean getCanRemove() {
 		return canRemove;
+	}
+
+	public void setReservationId(int reservationId){
+		this.reservationId = reservationId;
+	}
+	
+	public int getReservationId() {
+		return reservationId;
 	}
 
 }

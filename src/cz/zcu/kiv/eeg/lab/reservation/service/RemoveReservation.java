@@ -11,6 +11,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,13 +24,15 @@ import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
-public class CreateReservation extends ProgressService<ReservationData, Void, Boolean> {
+public class RemoveReservation extends ProgressService<ReservationData, Void, Boolean> {
 
-	private static final String TAG = CreateReservation.class.getSimpleName();
+	private static final String TAG = RemoveReservation.class.getSimpleName();
+	@SuppressLint("SimpleDateFormat")
+	private static SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
 	private ReservationData data;
 
-	public CreateReservation(ProgressActivity context) {
+	public RemoveReservation(ProgressActivity context) {
 		super(context);
 	}
 
@@ -44,7 +47,7 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 
 		try {
 
-			changeProgress(RUNNING, R.string.working_ws_create);
+			changeProgress(RUNNING, R.string.working_ws_remove);
 
 			SharedPreferences credentials = getCredentials();
 			String username = credentials.getString("username", null);
@@ -54,7 +57,7 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 			HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
 			HttpHeaders requestHeaders = new HttpHeaders();
 			requestHeaders.setAuthorization(authHeader);
-			requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+			requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_OCTET_STREAM));
 			requestHeaders.setContentType(MediaType.APPLICATION_XML);
 			HttpEntity<ReservationData> entity = new HttpEntity<ReservationData>(data, requestHeaders);
 
@@ -63,7 +66,7 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 			restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
 
 			Log.d(TAG, url);
-			restTemplate.postForEntity(url, entity, null);
+			restTemplate.delete(url,entity);
 			return true;
 		} catch (Exception e) {
 			Log.e(TAG, e.getLocalizedMessage());
@@ -76,21 +79,7 @@ public class CreateReservation extends ProgressService<ReservationData, Void, Bo
 
 	@Override
 	protected void onPostExecute(Boolean success) {
-
-		if (success) {
-			try {
-				Intent resultIntent = new Intent();
-				Reservation record = new Reservation(data.getResearchGroup(), data.getResearchGroupId(), data.getFromTime(),
-						data.getToTime(), data.getCreatorName(), data.getCreatorMailUsername() + "@"
-								+ data.getCreatorMailDomain(),data.getCanRemove());
-				resultIntent.putExtra(Constants.ADD_RECORD_KEY, record);
-				Toast.makeText(activity, activity.getString(R.string.reservation_created), Toast.LENGTH_SHORT).show();
-				activity.setResult(Activity.RESULT_OK, resultIntent);
-				activity.finish();
-			} catch (ParseException e) {
-				Log.e(TAG, e.getLocalizedMessage());
-				changeProgress(ERROR, e);
-			}
-		}
+		if (success) 
+			Toast.makeText(activity, activity.getString(R.string.reservation_removed), Toast.LENGTH_SHORT).show();
 	}
 }

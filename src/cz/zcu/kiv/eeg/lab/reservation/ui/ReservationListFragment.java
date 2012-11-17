@@ -31,7 +31,6 @@ public class ReservationListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		setListAdapter(null);
 		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		getListView().setSelector(R.drawable.list_selector);
 		if (header != null)
 			getListView().addHeaderView(header);
 
@@ -43,6 +42,7 @@ public class ReservationListFragment extends ListFragment {
 		}
 
 		if (isDualView) {
+			getListView().setSelector(R.drawable.list_selector);
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 			if (cursorPosition >= HEADER_ROW) {
 				showDetails(cursorPosition);

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.res.Resources.NotFoundException;
@@ -13,13 +14,13 @@ import android.view.*;
 import android.widget.*;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
-import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.CreateReservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 
+@SuppressLint("SimpleDateFormat")
 public class AddRecordActivity extends SaveDiscardActivity{
 
 	private static final String TAG = AddRecordActivity.class.getSimpleName();
@@ -143,29 +144,5 @@ public class AddRecordActivity extends SaveDiscardActivity{
 	@Override
 	protected void discard() {
 		finish();
-	}
-
-	@Override
-	public void changeProgress(final ProgressState messageType, final Message message) {
-		new Handler(Looper.getMainLooper()).post(new Runnable() {
-			@Override
-			public void run() {
-				switch (messageType) {
-				case RUNNING:
-					wsProgressDialog = ProgressDialog.show(AddRecordActivity.this, getString(R.string.working),
-							(String) message.obj, true, true);
-					break;
-				case INACTIVE:
-				case DONE:
-					if (wsProgressDialog != null && wsProgressDialog.isShowing())
-						wsProgressDialog.dismiss();
-					break;
-				case ERROR:
-					showAlert(message.obj.toString());
-				default:
-					break;
-				}
-			}
-		});
 	}
 }

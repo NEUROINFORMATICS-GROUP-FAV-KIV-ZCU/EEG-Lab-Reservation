@@ -10,6 +10,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.util.Log;
 import cz.zcu.kiv.eeg.lab.reservation.R;
@@ -20,6 +21,7 @@ import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationDataList;
 import cz.zcu.kiv.eeg.lab.reservation.service.ssl.HttpsClient;
 import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
+@SuppressLint("SimpleDateFormat")
 public class FetchReservationsToDate extends ProgressService<Integer, Void, List<ReservationData>> {
 
 	private static final String TAG = FetchReservationsToDate.class.getSimpleName();
@@ -89,7 +91,7 @@ public class FetchReservationsToDate extends ProgressService<Integer, Void, List
 					SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy hh:mm");
 					Date fromTime = sf.parse(res.getFromTime());
 					Date toTime = sf.parse(res.getToTime());
-					Reservation reservation = new Reservation(res.getResearchGroup(), fromTime, toTime,
+					Reservation reservation = new Reservation(res.getResearchGroup(), res.getResearchGroupId(), fromTime, toTime,
 							res.getCreatorName(), res.getCreatorMailUsername() + "@" + res.getCreatorMailDomain(), res.getCanRemove());
 					reservationAdapter.add(reservation);
 				} catch (Exception e) {

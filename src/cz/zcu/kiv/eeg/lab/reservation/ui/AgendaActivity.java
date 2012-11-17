@@ -1,10 +1,8 @@
 package cz.zcu.kiv.eeg.lab.reservation.ui;
 
-import android.app.ProgressDialog;
 import android.os.*;
 import android.util.Log;
 import cz.zcu.kiv.eeg.lab.reservation.R;
-import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 
 /**
  * 
@@ -23,28 +21,4 @@ public class AgendaActivity extends ProgressActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 	}
-
-	@Override
-	public void changeProgress(final ProgressState messageType, final Message message) {
-		new Handler(Looper.getMainLooper()).post(new Runnable() {
-			@Override
-			public void run() {
-				switch (messageType) {
-				case RUNNING:
-					wsProgressDialog = ProgressDialog.show(AgendaActivity.this, getString(R.string.working),
-							(String) message.obj, true, true);
-					break;
-				case INACTIVE:
-				case DONE:
-					wsProgressDialog.dismiss();
-					break;
-				case ERROR:
-					showAlert(message.obj.toString());
-				default:
-					break;
-				}
-			}
-		});
-	}
-
 }

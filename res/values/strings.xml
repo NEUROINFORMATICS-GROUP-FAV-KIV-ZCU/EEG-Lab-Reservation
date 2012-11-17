@@ -21,6 +21,8 @@
     <string name="main_date">Choose date</string>
     <string name="reservation_times">Reserved times</string>
     <string name="reservation_created">Reservation created.</string>
+    <string name="reservation_edited">Reservation edited.</string>
+    <string name="reservation_removed">Reservation removed.</string>
     <string name="add_group_label">Research group</string>
     <string name="add_from_label">From time</string>
     <string name="add_to_label">To time</string>
@@ -33,11 +35,13 @@
     <string name="working_ws_login">Veryfing login information…</string>
     <string name="working_ws_groups">Downloading available research groups…</string>
     <string name="working_ws_create">Creating new record…</string>
+    <string name="working_ws_edit">Editing record…</string>
+    <string name="working_ws_remove">Removing record…</string>
     <string name="dummy_date">DATE</string>
     <string name="dummy_from">FROM</string>
     <string name="dummy_to">TO</string>
     <string name="error_offline">Connection is unavailable. Request could not be completed.</string>
-    <string name="error_connection">Connection to server issues occured. Try again later.</string>
+    <string name="error_connection">Connection to server issues occurred. Try again later.</string>
 	<string name="error_date_comparison">Reservation action cannot end before it even started!</string>
 	<string name="error_unknown_host">Invalid host name/address!</string>
 	<string name="error_invalid_password">Password must be entered!</string>
@@ -61,4 +65,7 @@
 	<string name="detail_empty">No reservation selected</string>
 	<string name="detail_time">Time span</string>
 	<string name="detail_contact">Contact</string>
+	<string name="button_remove">Remove reservation</string>
+	<string name="dialog_remove_header">Removing reservation</string>
+	<string name="dialog_remove_body">Are you sure you want to remove this reservation?</string>
 </resources>

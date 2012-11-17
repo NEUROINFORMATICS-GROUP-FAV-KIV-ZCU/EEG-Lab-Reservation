@@ -1,6 +1,5 @@
 package cz.zcu.kiv.eeg.lab.reservation.ui;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.*;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.widget.TextView;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
-import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ValidationUtils;
@@ -83,28 +81,5 @@ public class SettingsActivity extends SaveDiscardActivity {
 		} else {
 			showAlert(error.toString());
 		}
-	}
-
-	@Override
-	public void changeProgress(final ProgressState messageType, final Message message) {
-		new Handler(Looper.getMainLooper()).post(new Runnable() {
-			@Override
-			public void run() {
-				switch (messageType) {
-				case RUNNING:
-					wsProgressDialog = ProgressDialog.show(SettingsActivity.this, getString(R.string.working), (String) message.obj, true, true);
-					break;
-				case INACTIVE:
-				case DONE:
-					if (wsProgressDialog != null && wsProgressDialog.isShowing())
-						wsProgressDialog.dismiss();
-					break;
-				case ERROR:
-					showAlert(message.obj.toString());
-				default:
-					break;
-				}
-			}
-		});
 	}
 }

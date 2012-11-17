@@ -21,6 +21,8 @@
     <string name="main_date">Vyberte datum</string>
     <string name="reservation_times">Rezervované časy</string>
     <string name="reservation_created">Rezervace vytvořena</string>
+    <string name="reservation_edited">Rezervace upravena</string>
+    <string name="reservation_removed">Rezervace smazána</string>
     <string name="add_group_label">Výzkumná skupina</string>
     <string name="add_from_label">Od času</string>
     <string name="add_to_label">Do času</string>
@@ -33,6 +35,8 @@
     <string name="working_ws_msg">Probíhá komunikace s webovou službou…</string>
     <string name="working_ws_groups">Stahují se dostupné výzkumné skupiny…</string>
     <string name="working_ws_create">Vytváření nového záznamu…</string>
+    <string name="working_ws_edit">Upravuji záznam…</string>
+    <string name="working_ws_remove">Odstraňuji záznam…</string>
     <string name="dummy_date">DATUM</string>
     <string name="dummy_from">OD</string>
     <string name="dummy_to">DO</string>
@@ -60,4 +64,7 @@
 	<string name="detail_empty">Nevybrána žádná rezervace</string>
 	<string name="detail_time">Časy</string>
 	<string name="detail_contact">Kontakt</string>
+	<string name="button_remove">Smazat rezervaci</string>
+	<string name="dialog_remove_header">Smazání rezervace</string>
+	<string name="dialog_remove_body">Skutečně chcete rezervaci smazat?</string>
 </resources>

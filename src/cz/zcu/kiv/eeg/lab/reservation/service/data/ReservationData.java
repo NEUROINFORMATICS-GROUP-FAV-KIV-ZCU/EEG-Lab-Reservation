@@ -109,6 +109,10 @@ public class ReservationData {
 	public boolean isCanRemove() {
 		return canRemove;
 	}
+	
+	public boolean getCanRemove(){
+		return canRemove;
+	}
 
 	public void setCanRemove(boolean canRemove) {
 		this.canRemove = canRemove;

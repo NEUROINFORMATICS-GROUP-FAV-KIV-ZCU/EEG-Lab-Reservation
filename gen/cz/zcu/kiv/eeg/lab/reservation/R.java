@@ -34,13 +34,13 @@ public final class R {
         public static final int RelativeLayout1=0x7f07001f;
         public static final int TimeValues=0x7f07001b;
         public static final int TimeValues_ref=0x7f070013;
-        public static final int about=0x7f070031;
+        public static final int about=0x7f070033;
         public static final int actionbar_cancel=0x7f070000;
         public static final int actionbar_save=0x7f070001;
-        public static final int addRecord=0x7f07002f;
+        public static final int addRecord=0x7f070031;
         public static final int agenda=0x7f07000d;
-        public static final int app_name_label=0x7f07002c;
-        public static final int bottomtext=0x7f070024;
+        public static final int app_name_label=0x7f07002e;
+        public static final int bottomtext=0x7f070025;
         public static final int chooseDateButton=0x7f070021;
         public static final int creatorIcon=0x7f070014;
         public static final int creatorLabel=0x7f070015;
@@ -57,18 +57,20 @@ public final class R {
         public static final int groupLabel=0x7f070009;
         public static final int groupList=0x7f07000a;
         public static final int groupValue=0x7f070010;
-        public static final int logo=0x7f07002b;
+        public static final int logo=0x7f07002d;
         public static final int mailIcon=0x7f070017;
-        public static final int menuLogin=0x7f07002d;
-        public static final int refresh=0x7f07002e;
+        public static final int menuLogin=0x7f07002f;
+        public static final int refresh=0x7f070030;
+        public static final int removeButton=0x7f070026;
+        public static final int reservation_layout=0x7f070023;
         public static final int reservation_list=0x7f070022;
-        public static final int settings=0x7f070030;
-        public static final int settings_password_field=0x7f070028;
-        public static final int settings_password_label=0x7f070027;
-        public static final int settings_url_field=0x7f07002a;
-        public static final int settings_url_label=0x7f070029;
-        public static final int settings_username_field=0x7f070026;
-        public static final int settings_username_label=0x7f070025;
+        public static final int settings=0x7f070032;
+        public static final int settings_password_field=0x7f07002a;
+        public static final int settings_password_label=0x7f070029;
+        public static final int settings_url_field=0x7f07002c;
+        public static final int settings_url_label=0x7f07002b;
+        public static final int settings_username_field=0x7f070028;
+        public static final int settings_username_label=0x7f070027;
         public static final int textView1=0x7f07001a;
         public static final int timeIcon=0x7f070011;
         public static final int timeLabel=0x7f070012;
@@ -77,7 +79,7 @@ public final class R {
         public static final int toLabel=0x7f070006;
         public static final int toTimeButton=0x7f070007;
         public static final int toValue=0x7f07001e;
-        public static final int toptext=0x7f070023;
+        public static final int toptext=0x7f070024;
         public static final int txtHeader=0x7f07000b;
     }
     public static final class layout {

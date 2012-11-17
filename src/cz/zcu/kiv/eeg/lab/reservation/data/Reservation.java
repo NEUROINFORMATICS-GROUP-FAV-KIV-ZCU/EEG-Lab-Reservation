@@ -17,13 +17,15 @@ public class Reservation implements Serializable {
 	private Date toTime;
 	private String creatorName;
 	private String email;
+	private boolean canRemove;
 
-	public Reservation(CharSequence researchGroup, Date fromTime, Date toTime, String creatorName, String email) {
+	public Reservation(CharSequence researchGroup, Date fromTime, Date toTime, String creatorName, String email, boolean canRemove) {
 		this.researchGroup = researchGroup;
 		this.fromTime = fromTime;
 		this.toTime = toTime;
 		this.creatorName = creatorName;
 		this.email = email;
+		this.canRemove = canRemove;
 	}
 
 	public CharSequence getResearchGroup() {
@@ -66,4 +68,18 @@ public class Reservation implements Serializable {
 		this.email = email;
 	}
 
+	public boolean isCanRemove() {
+		return canRemove;
+	}
+
+	
+	public void setCanRemove(boolean canRemove) {
+		this.canRemove = canRemove;
+	}
+
+	public boolean getCanRemove() {
+		return canRemove;
+	}
+
+	
 }

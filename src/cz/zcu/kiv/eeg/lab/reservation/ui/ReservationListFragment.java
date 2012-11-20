@@ -12,6 +12,7 @@ import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.container.ReservationAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.Reservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchReservationsToDate;
+import cz.zcu.kiv.eeg.lab.reservation.service.ProgressService;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 
 public class ReservationListFragment extends ListFragment {
@@ -127,7 +128,7 @@ public class ReservationListFragment extends ListFragment {
 		ProgressActivity activity = (ProgressActivity) getActivity();
 
 		if (ConnectionUtils.isOnline(activity)) {
-			new FetchReservationsToDate(activity, getAdapter()).execute(day, month, year);
+			activity.service = (ProgressService<?, ?, ?>) new FetchReservationsToDate(activity, getAdapter()).execute(day, month, year);
 		} else
 			activity.showAlert(activity.getString(R.string.error_offline));
 	}

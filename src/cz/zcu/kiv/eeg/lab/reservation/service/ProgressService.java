@@ -1,5 +1,6 @@
 package cz.zcu.kiv.eeg.lab.reservation.service;
 
+import java.io.Serializable;
 import java.net.UnknownHostException;
 
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,11 @@ import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
 import cz.zcu.kiv.eeg.lab.reservation.ui.ProgressActivity;
 
-public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> {
+public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> implements Serializable {
 
+	private static final long serialVersionUID = -1800322528900745205L;
 	protected ProgressActivity activity;
+	private ProgressState state;
 
 	public ProgressService(ProgressActivity context) {
 		this.activity = context;
@@ -27,6 +30,7 @@ public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> {
 	}
 
 	protected void changeProgress(ProgressState state, Object messageBody) {
+		this.state = state;
 		Message msg = Message.obtain();
 
 		if (state == ProgressState.ERROR && messageBody instanceof Exception) {
@@ -69,6 +73,10 @@ public abstract class ProgressService<T, U, V> extends AsyncTask<T, U, V> {
 			return activity.getString(R.string.error_unknown_host);
 
 		return exception.getLocalizedMessage();
+	}
+	
+	public boolean isActive(){
+		return (state == ProgressState.RUNNING);
 	}
 
 	protected SharedPreferences getCredentials() {

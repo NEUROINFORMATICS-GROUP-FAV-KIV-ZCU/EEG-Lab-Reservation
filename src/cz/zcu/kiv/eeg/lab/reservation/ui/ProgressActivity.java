@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.Message;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.ProgressState;
+import cz.zcu.kiv.eeg.lab.reservation.service.ProgressService;
 
 public abstract class ProgressActivity extends Activity {
 
@@ -15,6 +16,7 @@ public abstract class ProgressActivity extends Activity {
 	protected volatile boolean progressOn = false;
 	private String progressTitle;
 	private String progressMessage;
+	protected ProgressService<?,?,?> service;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,12 @@ public abstract class ProgressActivity extends Activity {
 			}
 
 			if (progressOn) {
-				progressTitle = savedInstanceState.getString("progressTitle");
-				progressMessage = savedInstanceState.getString("progressMessage");
-				wsProgressDialog = ProgressDialog.show(ProgressActivity.this, progressTitle, progressMessage, true, false);
+				service = (ProgressService<?,?,?>) savedInstanceState.get("service");
+				if (service.isActive()) {
+					progressTitle = savedInstanceState.getString("progressTitle");
+					progressMessage = savedInstanceState.getString("progressMessage");
+					wsProgressDialog = ProgressDialog.show(ProgressActivity.this, progressTitle, progressMessage, true, false);
+				}
 			}
 		}
 	}
@@ -75,9 +80,11 @@ public abstract class ProgressActivity extends Activity {
 							wsProgressDialog = null;
 						}
 						progressOn = false;
+						service = null;
 						break;
 					case ERROR:
 						showAlert(message.obj.toString());
+						service = null;
 					default:
 						break;
 					}
@@ -90,9 +97,12 @@ public abstract class ProgressActivity extends Activity {
 	public void onSaveInstanceState(Bundle outState) {
 		synchronized (ProgressActivity.class) {
 			super.onSaveInstanceState(outState);
-			outState.putBoolean("progressOn", progressOn);
-			outState.putString("progressTitle", progressTitle);
-			outState.putString("progressMessage", progressMessage);
+			if (service != null && service.isActive()) {
+				outState.putSerializable("service", service);
+				outState.putBoolean("progressOn", progressOn);
+				outState.putString("progressTitle", progressTitle);
+				outState.putString("progressMessage", progressMessage);
+			}
 		}
 	}
 

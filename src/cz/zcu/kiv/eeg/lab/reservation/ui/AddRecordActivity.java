@@ -17,6 +17,7 @@ import cz.zcu.kiv.eeg.lab.reservation.container.ResearchGroupAdapter;
 import cz.zcu.kiv.eeg.lab.reservation.data.ResearchGroup;
 import cz.zcu.kiv.eeg.lab.reservation.service.CreateReservation;
 import cz.zcu.kiv.eeg.lab.reservation.service.FetchResearchGroups;
+import cz.zcu.kiv.eeg.lab.reservation.service.ProgressService;
 import cz.zcu.kiv.eeg.lab.reservation.service.data.ReservationData;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 
@@ -63,7 +64,7 @@ public class AddRecordActivity extends SaveDiscardActivity{
 
 	private void updateData() {
 		if (ConnectionUtils.isOnline(this)) {
-			new FetchResearchGroups(this, researchGroupAdapter).execute();
+			service = (ProgressService<?, ?, ?>) new FetchResearchGroups(this, researchGroupAdapter).execute();
 		} else
 			showAlert(getString(R.string.error_offline));
 	}

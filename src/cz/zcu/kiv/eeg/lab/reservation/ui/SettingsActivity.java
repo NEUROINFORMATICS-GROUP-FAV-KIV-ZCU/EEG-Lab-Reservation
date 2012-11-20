@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 import cz.zcu.kiv.eeg.lab.reservation.R;
 import cz.zcu.kiv.eeg.lab.reservation.data.Constants;
+import cz.zcu.kiv.eeg.lab.reservation.service.ProgressService;
 import cz.zcu.kiv.eeg.lab.reservation.service.TestCredentials;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ConnectionUtils;
 import cz.zcu.kiv.eeg.lab.reservation.utils.ValidationUtils;
@@ -77,7 +78,7 @@ public class SettingsActivity extends SaveDiscardActivity {
 			editor.putString("tmp_url", url);
 			editor.commit();
 
-			new TestCredentials(this, true).execute();
+			service = (ProgressService<?, ?, ?>) new TestCredentials(this, true).execute();
 		} else {
 			showAlert(error.toString());
 		}

@@ -19,6 +19,6 @@ public class AgendaActivity extends ProgressActivity {
 		Log.d(TAG, "App started");
 		setTitle(R.string.app_overview);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.agenda);
 	}
 }

@@ -6,3 +6,9 @@
 .settings
 
 /gen
+
+# IntelliJ Idea
+.git
+.idea
+*.project
+*.iml

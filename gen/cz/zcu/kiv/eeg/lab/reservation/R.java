@@ -46,8 +46,8 @@ public final class R {
         public static final int creatorMailLabel=0x7f070017;
         public static final int creatorName=0x7f070015;
         public static final int dateLabel=0x7f07001f;
-        public static final int details=0x7f07000d;
-        public static final int fragment_agenda=0x7f07000c;
+        public static final int details=0x7f07000c;
+        public static final int fragment_agenda=0x7f07000b;
         public static final int fromField=0x7f070005;
         public static final int fromLabel=0x7f070004;
         public static final int fromTimeButton=0x7f070003;
@@ -81,14 +81,14 @@ public final class R {
         public static final int toTimeButton=0x7f070007;
         public static final int toValue=0x7f07001d;
         public static final int toptext=0x7f070024;
-        public static final int txtHeader=0x7f07000b;
+        public static final int txtHeader=0x7f07000d;
     }
     public static final class layout {
         public static final int actionbar_save_cancel=0x7f030000;
         public static final int add_record=0x7f030001;
-        public static final int group_row=0x7f030002;
-        public static final int header_row=0x7f030003;
-        public static final int main=0x7f030004;
+        public static final int agenda=0x7f030002;
+        public static final int group_row=0x7f030003;
+        public static final int header_row=0x7f030004;
         public static final int reservation_details=0x7f030005;
         public static final int reservation_details_empty=0x7f030006;
         public static final int reservation_details_times=0x7f030007;

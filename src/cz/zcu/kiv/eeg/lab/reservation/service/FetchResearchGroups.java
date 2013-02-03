@@ -36,7 +36,7 @@ public class FetchResearchGroups extends ProgressService<Void, Void, List<Resear
 		SharedPreferences credentials = getCredentials();
 		String username = credentials.getString("username", null);
 		String password = credentials.getString("password", null);
-		String url = credentials.getString("url", null) + "reservation/groups";
+		String url = credentials.getString("url", null) + "user/groups";
 
 		changeProgress(RUNNING, R.string.working_ws_groups);
 		HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
